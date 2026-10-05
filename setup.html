@@ -1,479 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Setup - Quail Invitational 2026</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quail Invitational - Setup</title>
+  <style>
+    :root {
+      --bg-dark: #0b101b;
+      --card-bg: #131b2e;
+      --accent-orange: #ff6b4a;
+      --border-color: #273552;
+      --text-main: #f0f4f8;
+      --text-muted: #8b9bb4;
+    }
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    body {
+      margin: 0;
+      padding: 20px;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        navy: { 800: '#1e293b', 850: '#172033', 900: '#0f172a', 950: '#080d1a' },
-                        salmon: { 300: '#ffb3a1', 400: '#ff8f73', 500: '#ff7a59', 600: '#e65c3b', 700: '#cc4425' }
-                    },
-                    fontFamily: { serif: ['Cinzel', 'serif'], sans: ['Inter', 'sans-serif'] }
-                }
-            }
-        }
-    </script>
-    
-    <style>
-        body { background-color: #080d1a; color: #f3f4f6; font-family: 'Inter', sans-serif; }
-        .salmon-gradient-text { background: linear-gradient(135deg, #ffb3a1 0%, #ff7a59 50%, #e65c3b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    </style>
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .room-badge {
+      display: inline-block;
+      background: #1e293b;
+      border: 1px solid var(--border-color);
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      color: var(--accent-orange);
+      margin-top: 5px;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 10px;
+      background: #0f172a;
+      padding: 6px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 24px;
+    }
+
+    .nav-tab {
+      flex: 1;
+      padding: 10px;
+      text-align: center;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .nav-tab.active {
+      background: var(--accent-orange);
+      color: #ffffff;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--accent-orange);
+      margin: 0 0 12px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 12px;
+      background: #0d1424;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      color: #ffffff;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    select:focus, input:focus {
+      outline: none;
+      border-color: var(--accent-orange);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--accent-orange);
+      border: none;
+      border-radius: 8px;
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between">
+<body>
 
-    <div class="max-w-md mx-auto w-full min-h-screen flex flex-col bg-navy-950 shadow-2xl relative border-x border-navy-900/50">
-        
-        <!-- Header & Top Navigation Bar -->
-        <header class="bg-gradient-to-b from-navy-900 to-navy-950 p-4 border-b border-salmon-500/30 text-center relative overflow-hidden sticky top-0 z-30 shadow-lg">
-            <div class="relative z-10 flex flex-col items-center">
-                <h1 class="font-serif text-2xl font-extrabold tracking-wider salmon-gradient-text">QUAIL INVITATIONAL</h1>
-                <span id="room-code-badge" class="text-[10px] bg-salmon-500/20 text-salmon-400 px-2 py-0.5 rounded border border-salmon-500/40 font-mono font-bold mt-1">TOURNAMENT SETUP</span>
-            </div>
+<div class="container">
+  <div class="header">
+    <h1 style="margin: 0; font-family: serif; letter-spacing: 1px;">QUAIL INVITATIONAL</h1>
+    <div class="room-badge">ROOM: QUAIL26</div>
+  </div>
 
-            <nav class="flex mt-3 bg-navy-900/80 p-1 rounded-xl border border-salmon-500/20 text-xs font-medium">
-                <a id="nav-leaderboard" href="index.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 text-slate-200 hover:text-white">
-                    <i data-lucide="trophy" class="w-3.5 h-3.5"></i>
-                    <span>Leaderboard</span>
-                </a>
-                <a id="nav-scorecard" href="scorecard.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 text-slate-200 hover:text-white">
-                    <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
-                    <span>Scorecard</span>
-                </a>
-                <a id="nav-setup" href="setup.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 bg-salmon-500 text-navy-950 font-bold shadow-md">
-                    <i data-lucide="settings" class="w-3.5 h-3.5"></i>
-                    <span>Setup</span>
-                </a>
-            </nav>
-        </header>
+  <nav class="nav-tabs">
+    <a href="leaderboard.html" class="nav-tab">🏆 Leaderboard</a>
+    <a href="scorecard.html" class="nav-tab">✏️ Scorecard</a>
+    <a href="setup.html" class="nav-tab active">⚙️ Setup</a>
+  </nav>
 
-        <!-- Main Content -->
-        <main class="flex-1 p-4 pb-20 space-y-4">
-            
-            <!-- Password Gate Section -->
-            <div id="password-gate" class="bg-navy-900/80 p-5 rounded-xl border border-salmon-500/30 text-center space-y-3">
-                <i data-lucide="lock" class="w-8 h-8 text-salmon-400 mx-auto"></i>
-                <h2 class="font-serif font-bold text-lg text-white">Admin Authentication</h2>
-                <p class="text-xs text-slate-300">Enter commissioner password to access setup & course settings.</p>
-                <input type="password" id="input-password" class="w-full bg-navy-950 border border-navy-700 text-white p-2.5 rounded-lg text-center text-sm font-mono outline-none focus:border-salmon-500" placeholder="Password">
-                <button id="btn-unlock" class="w-full py-2.5 bg-salmon-500 text-navy-950 font-bold text-xs rounded-lg active:scale-95 transition-transform">Unlock Setup</button>
-            </div>
-
-            <!-- Admin Content -->
-            <div id="admin-content" class="hidden space-y-4">
-                
-                <div class="bg-navy-900/40 p-4 rounded-xl border border-navy-800 space-y-3">
-                    <h2 class="font-serif font-bold text-base text-salmon-400 flex items-center gap-2">
-                        <i data-lucide="wifi" class="w-4 h-4"></i> Match Room Code
-                    </h2>
-                    <div class="flex gap-2">
-                        <input type="text" id="input-room-code" class="flex-1 bg-navy-950 border border-navy-700 text-white p-2.5 rounded-lg text-xs font-mono uppercase font-bold tracking-wider outline-none focus:border-salmon-500" placeholder="e.g. QUAIL26">
-                        <button id="btn-apply-room-code" class="px-4 bg-salmon-500 text-navy-950 font-bold text-xs rounded-lg">Switch Room</button>
-                    </div>
-                </div>
-
-                <!-- Course & Round Setup -->
-                <div class="bg-navy-900/40 p-4 rounded-xl border border-navy-800 space-y-3">
-                    <h2 class="font-serif font-bold text-base text-salmon-400 flex items-center gap-2">
-                        <i data-lucide="map-pin" class="w-4 h-4"></i> Round & Course Setup
-                    </h2>
-                    
-                    <div>
-                        <label class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Select Golf Course</label>
-                        <select id="select-course" class="w-full bg-navy-950 border border-navy-700 text-white font-medium text-xs rounded-lg p-2.5 outline-none focus:border-salmon-500">
-                            <option value="quail_hollow">Quail Hollow Country Club (Oakham, MA)</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Select Tee Box</label>
-                        <select id="select-tee" class="w-full bg-navy-950 border border-navy-700 text-white font-medium text-xs rounded-lg p-2.5 outline-none focus:border-salmon-500">
-                            <option value="blue">Blue Tees</option>
-                            <option value="white" selected>White Tees</option>
-                            <option value="red">Red Tees</option>
-                        </select>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-2">
-                        <div>
-                            <label class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Hole Count</label>
-                            <select id="select-hole-count" class="w-full bg-navy-950 border border-navy-700 text-white font-medium text-xs rounded-lg p-2.5 outline-none focus:border-salmon-500">
-                                <option value="18">18 Holes</option>
-                                <option value="9">9 Holes</option>
-                                <option value="6">6 Holes</option>
-                            </select>
-                        </div>
-                        <div id="nine-selection-container">
-                            <label class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Nine Selection</label>
-                            <select id="select-nine" class="w-full bg-navy-950 border border-navy-700 text-white font-medium text-xs rounded-lg p-2.5 outline-none focus:border-salmon-500">
-                                <option value="front">Front 9 (Holes 1-9)</option>
-                                <option value="back">Back 9 (Holes 10-18)</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Scoring Settings -->
-                <div class="bg-navy-900/40 p-4 rounded-xl border border-navy-800 space-y-3">
-                    <h2 class="font-serif font-bold text-base text-salmon-400 flex items-center gap-2">
-                        <i data-lucide="sliders" class="w-4 h-4"></i> Scoring Configuration
-                    </h2>
-                    
-                    <div class="flex items-center justify-between bg-navy-950 p-3 rounded-xl border border-navy-800">
-                        <div>
-                            <div class="text-xs font-bold text-white">Track Group / Team Score</div>
-                            <div class="text-[10px] text-slate-400">If OFF, hides team +/- buttons and sums personal shots</div>
-                        </div>
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" id="toggle-track-group" class="sr-only peer" checked>
-                            <div class="w-11 h-6 bg-navy-900 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-salmon-500"></div>
-                        </label>
-                    </div>
-
-                    <div class="flex items-center justify-between bg-navy-950 p-3 rounded-xl border border-navy-800">
-                        <div>
-                            <div class="text-xs font-bold text-white">Track Personal Shots</div>
-                            <div class="text-[10px] text-slate-400">If OFF, hides personal shot entry on scorecard</div>
-                        </div>
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" id="toggle-track-personal" class="sr-only peer" checked>
-                            <div class="w-11 h-6 bg-navy-900 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-salmon-500"></div>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Teams & Rosters -->
-                <div class="bg-navy-900/40 p-4 rounded-xl border border-navy-800 space-y-4">
-                    <div class="flex justify-between items-center">
-                        <h2 class="font-serif font-bold text-base text-salmon-400 flex items-center gap-2">
-                            <i data-lucide="users" class="w-4 h-4"></i> Manage Teams & Rosters
-                        </h2>
-                        <button id="btn-add-team" class="text-xs bg-navy-800 text-salmon-300 border border-navy-700 px-2.5 py-1 rounded-lg font-bold flex items-center gap-1">
-                            <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add Team
-                        </button>
-                    </div>
-
-                    <div id="teams-editor-container" class="space-y-4"></div>
-
-                    <button id="btn-save-settings" class="w-full py-3 bg-salmon-500 text-navy-950 font-bold text-xs rounded-xl shadow-lg active:scale-95 transition-transform">
-                        Save Setup & Apply Round
-                    </button>
-                </div>
-
-                <!-- Clear Options -->
-                <div class="bg-navy-900/40 p-4 rounded-xl border border-navy-800 space-y-3">
-                    <h2 class="font-serif font-bold text-base text-salmon-400 flex items-center gap-2">
-                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reset & Clear Options
-                    </h2>
-                    <div class="grid grid-cols-2 gap-2">
-                        <button id="btn-clear-course-scores" class="py-2.5 bg-yellow-950/40 text-salmon-300 border border-yellow-800/60 font-semibold text-xs rounded-lg">Clear Active Round Scores</button>
-                        <button id="btn-clear-all-history" class="py-2.5 bg-red-950/60 text-red-300 border border-red-800/80 font-semibold text-xs rounded-lg">Clear All Round History</button>
-                    </div>
-                </div>
-
-            </div>
-
-        </main>
+  <!-- MOVED: Active Tee Selection section now resides in Setup -->
+  <div class="card">
+    <h2 class="card-title">⛳ Course & Tee Settings</h2>
+    <div class="form-group">
+      <label for="teeSelect">Active Tee Box</label>
+      <select id="teeSelect" onchange="updateTeePreference(this.value)">
+        <option value="blue" selected>Blue Tees (5,719 yds)</option>
+        <option value="white">White Tees (5,439 yds)</option>
+        <option value="gold">Gold Tees (4,956 yds)</option>
+        <option value="red">Red Tees (4,361 yds)</option>
+      </select>
     </div>
+  </div>
 
-    <script>
-        const COURSE_DATABASE = {
-            quail_hollow: {
-                name: "Quail Hollow Country Club",
-                location: "Oakham, MA",
-                tees: {
-                    blue: { name: "Blue Tees", yards: [350, 380, 165, 410, 515, 175, 390, 525, 400, 365, 170, 500, 385, 415, 180, 395, 530, 420] },
-                    white: { name: "White Tees", yards: [335, 365, 150, 390, 495, 160, 370, 505, 380, 350, 155, 480, 365, 395, 165, 375, 510, 400] },
-                    red: { name: "Red Tees", yards: [290, 320, 125, 340, 435, 130, 320, 440, 330, 305, 130, 420, 315, 345, 135, 325, 445, 350] }
-                },
-                holes: [
-                    { hole: 1, par: 4 }, { hole: 2, par: 4 }, { hole: 3, par: 3 },
-                    { hole: 4, par: 4 }, { hole: 5, par: 5 }, { hole: 6, par: 3 },
-                    { hole: 7, par: 4 }, { hole: 8, par: 5 }, { hole: 9, par: 4 },
-                    { hole: 10, par: 4 }, { hole: 11, par: 3 }, { hole: 12, par: 5 },
-                    { hole: 13, par: 4 }, { hole: 14, par: 4 }, { hole: 15, par: 3 },
-                    { hole: 16, par: 4 }, { hole: 17, par: 5 }, { hole: 18, par: 4 }
-                ]
-            }
-        };
+  <div class="card">
+    <h2 class="card-title">👥 Team & Player Configuration</h2>
+    <div class="form-group">
+      <label for="teamName">Team Selection / Name</label>
+      <input type="text" id="teamName" value="Team 1" placeholder="Enter team name" />
+    </div>
+    <button class="btn" onclick="saveSettings()">Save Configuration</button>
+  </div>
+</div>
 
-        const STORAGE_KEY = 'QUAIL_INVITATIONAL_2026_STATE';
-        const firebaseConfig = {
-            apiKey: "AIzaSyAgrl9R0YF5XHyjzsoN5iJQQwiMpyl49Ug",
-            authDomain: "quail-invitational.firebaseapp.com",
-            databaseURL: "https://quail-invitational-default-rtdb.firebaseio.com",
-            projectId: "quail-invitational",
-            storageBucket: "quail-invitational.firebasestorage.app",
-            messagingSenderId: "394140283598",
-            appId: "1:394140283598:web:3268b04be314aeb608d69f"
-        };
+<script>
+  // Load saved tee configuration on load
+  document.addEventListener("DOMContentLoaded", () => {
+    const savedTee = localStorage.getItem("quail_active_tee") || "blue";
+    document.getElementById("teeSelect").value = savedTee;
+  });
 
-        let db = null, firebaseReady = false;
-        try { if (firebaseConfig.apiKey) { firebase.initializeApp(firebaseConfig); db = firebase.database(); firebaseReady = true; } } catch (e) {}
+  function updateTeePreference(tee) {
+    localStorage.setItem("quail_active_tee", tee);
+  }
 
-        function getRoomCodeFromURL() {
-            const params = new URLSearchParams(window.location.search);
-            return (params.get('room') || 'QUAIL26').toUpperCase();
-        }
+  function saveSettings() {
+    const team = document.getElementById("teamName").value;
+    localStorage.setItem("quail_active_team", team);
+    alert("Setup configurations saved!");
+  }
+</script>
 
-        let roomCode = getRoomCodeFromURL();
-
-        function updateNavLinks() {
-            document.getElementById('nav-leaderboard').href = `index.html?room=${roomCode}`;
-            document.getElementById('nav-scorecard').href = `scorecard.html?room=${roomCode}`;
-            document.getElementById('nav-setup').href = `setup.html?room=${roomCode}`;
-            document.getElementById('room-code-badge').textContent = `ROOM: ${roomCode}`;
-        }
-
-        function loadLocalState() {
-            try {
-                const saved = localStorage.getItem(`${STORAGE_KEY}_${roomCode}`);
-                if (saved) return JSON.parse(saved);
-            } catch (e) {}
-            return {
-                roomCode: roomCode,
-                selectedCourseKey: "quail_hollow",
-                selectedTeeKey: "white",
-                customCourseName: "",
-                holeCount: "18",
-                nineSelection: "front",
-                trackGroupScore: true,
-                trackPersonalShots: true,
-                teams: [
-                    { name: "Team 1", players: ["Player 1", "Player 2"], holes: [] },
-                    { name: "Team 2", players: ["Player 3", "Player 4"], holes: [] }
-                ],
-                history: []
-            };
-        }
-
-        let localState = loadLocalState();
-
-        function saveState() {
-            localStorage.setItem(`${STORAGE_KEY}_${roomCode}`, JSON.stringify(localState));
-            if (firebaseReady && db) {
-                db.ref('rooms/' + roomCode).set(localState);
-            }
-        }
-
-        function getActiveCourseHoles() {
-            const course = COURSE_DATABASE.quail_hollow;
-            const teeKey = localState.selectedTeeKey || 'white';
-            const yardsList = course.tees[teeKey] ? course.tees[teeKey].yards : course.tees.white.yards;
-            
-            const fullCourse = course.holes.map((h, i) => ({
-                ...h,
-                yards: yardsList[i] || 350
-            }));
-
-            const count = parseInt(localState.holeCount || "18", 10);
-            if (count === 18) return fullCourse;
-            if (count === 9) {
-                return localState.nineSelection === 'back' ? fullCourse.slice(9, 18) : fullCourse.slice(0, 9);
-            }
-            if (count === 6) return fullCourse.slice(0, 6);
-            return fullCourse;
-        }
-
-        function renderTeamsEditor() {
-            const container = document.getElementById('teams-editor-container');
-            container.innerHTML = '';
-
-            localState.teams.forEach((team, tIdx) => {
-                const card = document.createElement('div');
-                card.className = "bg-navy-950 p-3.5 rounded-xl border border-navy-800 space-y-3";
-                
-                let playersHtml = (team.players || []).map((p, pIdx) => `
-                    <div class="flex items-center gap-2">
-                        <input type="text" value="${p}" data-tidx="${tIdx}" data-pidx="${pIdx}" class="player-name-input flex-1 bg-navy-900 border border-navy-700 text-white p-2 rounded text-xs outline-none focus:border-salmon-500" placeholder="Player Name">
-                        <button onclick="removePlayer(${tIdx}, ${pIdx})" class="p-2 text-red-400 bg-red-950/40 rounded border border-red-900/50"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
-                    </div>
-                `).join('');
-
-                card.innerHTML = `
-                    <div class="flex items-center justify-between gap-2 border-b border-navy-800/80 pb-2">
-                        <input type="text" value="${team.name}" data-tidx="${tIdx}" class="team-name-input font-serif font-bold text-salmon-400 bg-transparent border-b border-dashed border-navy-700 focus:border-salmon-500 outline-none text-sm w-2/3" placeholder="Team Name">
-                        <button onclick="removeTeam(${tIdx})" class="text-[10px] text-red-400 bg-red-950/40 px-2 py-1 rounded border border-red-900/50">Delete Team</button>
-                    </div>
-                    <div class="space-y-2">
-                        <div class="text-[10px] text-slate-400 uppercase font-bold">Roster Players</div>
-                        ${playersHtml}
-                        <button onclick="addPlayer(${tIdx})" class="text-[11px] text-salmon-400 font-semibold flex items-center gap-1 mt-1">
-                            <i data-lucide="user-plus" class="w-3 h-3"></i> Add Player
-                        </button>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-
-            lucide.createIcons();
-        }
-
-        window.addPlayer = function(tIdx) {
-            localState.teams[tIdx].players.push(`Player ${localState.teams[tIdx].players.length + 1}`);
-            renderTeamsEditor();
-        };
-
-        window.removePlayer = function(tIdx, pIdx) {
-            localState.teams[tIdx].players.splice(pIdx, 1);
-            renderTeamsEditor();
-        };
-
-        window.removeTeam = function(tIdx) {
-            if (confirm("Delete this team?")) {
-                localState.teams.splice(tIdx, 1);
-                renderTeamsEditor();
-            }
-        };
-
-        function populateForm() {
-            document.getElementById('select-course').value = localState.selectedCourseKey || 'quail_hollow';
-            document.getElementById('select-tee').value = localState.selectedTeeKey || 'white';
-            document.getElementById('select-hole-count').value = localState.holeCount || '18';
-            document.getElementById('select-nine').value = localState.nineSelection || 'front';
-            document.getElementById('toggle-track-group').checked = localState.trackGroupScore !== false;
-            document.getElementById('toggle-track-personal').checked = localState.trackPersonalShots !== false;
-
-            const count = document.getElementById('select-hole-count').value;
-            document.getElementById('nine-selection-container').style.display = count === '9' ? 'block' : 'none';
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            updateNavLinks();
-            document.getElementById('input-room-code').value = roomCode;
-            populateForm();
-            lucide.createIcons();
-
-            document.getElementById('select-hole-count').onchange = (e) => {
-                document.getElementById('nine-selection-container').style.display = e.target.value === '9' ? 'block' : 'none';
-            };
-
-            document.getElementById('btn-unlock').onclick = () => {
-                const pass = document.getElementById('input-password').value.trim();
-                if (pass === 'carl') {
-                    document.getElementById('password-gate').classList.add('hidden');
-                    document.getElementById('admin-content').classList.remove('hidden');
-                    renderTeamsEditor();
-                } else {
-                    alert("Incorrect password!");
-                }
-            };
-
-            document.getElementById('btn-add-team').onclick = () => {
-                localState.teams.push({
-                    name: `Team ${localState.teams.length + 1}`,
-                    players: ["Player 1", "Player 2"],
-                    holes: []
-                });
-                renderTeamsEditor();
-            };
-
-            document.getElementById('btn-save-settings').onclick = () => {
-                if (!Array.isArray(localState.history)) localState.history = [];
-
-                const roundPlayerTotals = {};
-                let hasActiveData = false;
-
-                (localState.teams || []).forEach(t => {
-                    (t.players || []).forEach((p, pIdx) => {
-                        const count = (t.holes || []).reduce((sum, h) => sum + ((h && h.playerShots && h.playerShots[pIdx]) || 0), 0);
-                        if (count > 0 && p) {
-                            roundPlayerTotals[p] = (roundPlayerTotals[p] || 0) + count;
-                            hasActiveData = true;
-                        }
-                    });
-                });
-
-                if (hasActiveData) {
-                    localState.history.push({
-                        timestamp: new Date().toISOString(),
-                        courseName: "Quail Hollow Country Club",
-                        playerTotals: roundPlayerTotals
-                    });
-                }
-
-                localState.selectedCourseKey = document.getElementById('select-course').value;
-                localState.selectedTeeKey = document.getElementById('select-tee').value;
-                localState.holeCount = document.getElementById('select-hole-count').value;
-                localState.nineSelection = document.getElementById('select-nine').value;
-                localState.trackGroupScore = document.getElementById('toggle-track-group').checked;
-                localState.trackPersonalShots = document.getElementById('toggle-track-personal').checked;
-
-                document.querySelectorAll('.team-name-input').forEach(input => {
-                    const tIdx = parseInt(input.dataset.tidx, 10);
-                    localState.teams[tIdx].name = input.value.trim() || `Team ${tIdx + 1}`;
-                });
-
-                document.querySelectorAll('.player-name-input').forEach(input => {
-                    const tIdx = parseInt(input.dataset.tidx, 10);
-                    const pIdx = parseInt(input.dataset.pidx, 10);
-                    localState.teams[tIdx].players[pIdx] = input.value.trim() || `Player ${pIdx + 1}`;
-                });
-
-                const activeHoles = getActiveCourseHoles();
-                localState.teams.forEach(t => {
-                    t.holes = activeHoles.map(h => ({
-                        score: 0,
-                        playerShots: Array((t.players || []).length).fill(0),
-                        completed: false
-                    }));
-                });
-
-                saveState();
-                alert("Setup saved! Previous round shots were archived to the multi-round leaderboard.");
-            };
-
-            document.getElementById('btn-apply-room-code').onclick = () => {
-                const code = document.getElementById('input-room-code').value.trim().toUpperCase();
-                if (code) {
-                    window.location.href = `setup.html?room=${code}`;
-                }
-            };
-
-            document.getElementById('btn-clear-course-scores').onclick = () => {
-                if (confirm("Clear scores for the active round? Unplayed holes will start at 0.")) {
-                    const activeHoles = getActiveCourseHoles();
-                    localState.teams.forEach(t => {
-                        t.holes = activeHoles.map(h => ({
-                            score: 0,
-                            playerShots: Array((t.players || []).length).fill(0),
-                            completed: false
-                        }));
-                    });
-                    saveState();
-                    alert("Active round scores cleared!");
-                }
-            };
-
-            document.getElementById('btn-clear-all-history').onclick = () => {
-                if (confirm("Clear active round scores AND all accumulated history across all rounds?")) {
-                    const activeHoles = getActiveCourseHoles();
-                    localState.teams.forEach(t => {
-                        t.holes = activeHoles.map(h => ({
-                            score: 0,
-                            playerShots: Array((t.players || []).length).fill(0),
-                            completed: false
-                        }));
-                    });
-                    localState.history = [];
-                    saveState();
-                    alert("All round history and active scores reset successfully!");
-                }
-            };
-        });
-    </script>
 </body>
 </html>
