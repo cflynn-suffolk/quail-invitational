@@ -1,223 +1,569 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Quail Invitational - Scorecard</title>
-  <style>
-    :root {
-      --bg-dark: #0b101b;
-      --card-bg: #131b2e;
-      --accent-orange: #ff6b4a;
-      --border-color: #273552;
-      --text-main: #f0f4f8;
-      --text-muted: #8b9bb4;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Scorecard - Quail Invitational 2026</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
 
-    body {
-      margin: 0;
-      padding: 20px;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-    }
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: { 800: '#1e293b', 850: '#172033', 900: '#0f172a', 950: '#080d1a' },
+                        salmon: { 300: '#ffb3a1', 400: '#ff8f73', 500: '#ff7a59', 600: '#e65c3b', 700: '#cc4425' }
+                    },
+                    fontFamily: { serif: ['Cinzel', 'serif'], sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body { background-color: #080d1a; color: #f3f4f6; font-family: 'Inter', sans-serif; }
+        .salmon-gradient-text { background: linear-gradient(135deg, #ffb3a1 0%, #ff7a59 50%, #e65c3b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
 
-    .header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .room-badge {
-      display: inline-block;
-      background: #1e293b;
-      border: 1px solid var(--border-color);
-      padding: 4px 12px;
-      border-radius: 4px;
-      font-size: 0.85rem;
-      letter-spacing: 1px;
-      color: var(--accent-orange);
-      margin-top: 5px;
-    }
-
-    .nav-tabs {
-      display: flex;
-      gap: 10px;
-      background: #0f172a;
-      padding: 6px;
-      border-radius: 12px;
-      border: 1px solid var(--border-color);
-      margin-bottom: 24px;
-    }
-
-    .nav-tab {
-      flex: 1;
-      padding: 10px;
-      text-align: center;
-      color: var(--text-muted);
-      text-decoration: none;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      font-weight: 600;
-    }
-
-    .nav-tab.active {
-      background: var(--accent-orange);
-      color: #ffffff;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 16px;
-    }
-
-    .scoring-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .team-select {
-      background: #0d1424;
-      border: 1px solid var(--border-color);
-      color: #ffffff;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 1.1rem;
-      font-family: serif;
-    }
-
-    .total-score-box {
-      text-align: right;
-    }
-
-    .total-score {
-      font-size: 2rem;
-      font-weight: bold;
-      color: var(--accent-orange);
-      margin: 0;
-    }
-
-    .table-container {
-      overflow-x: auto;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: center;
-      min-width: 700px;
-    }
-
-    th, td {
-      padding: 10px 6px;
-      border: 1px solid var(--border-color);
-    }
-
-    th {
-      background: #0d1424;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-    }
-
-    .score-circle {
-      display: inline-block;
-      width: 26px;
-      height: 26px;
-      line-height: 26px;
-      border-radius: 50%;
-      border: 1px solid var(--accent-orange);
-      color: var(--accent-orange);
-    }
-  </style>
+        /* Traditional Golf Score Indicators */
+        .golf-score-eagle {
+            border: 2px double #ff8f73;
+            border-radius: 9999px;
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff8f73;
+            font-weight: 800;
+        }
+        .golf-score-birdie {
+            border: 1.5px solid #ff8f73;
+            border-radius: 9999px;
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff8f73;
+            font-weight: 700;
+        }
+        .golf-score-par {
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .golf-score-bogey {
+            border: 1.5px solid #ef4444;
+            border-radius: 2px;
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #fca5a5;
+            font-weight: 700;
+        }
+        .golf-score-doublebogey {
+            border: 2px double #ef4444;
+            border-radius: 2px;
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #fca5a5;
+            font-weight: 800;
+        }
+    </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col justify-between">
 
-<div class="container">
-  <div class="header">
-    <h1 style="margin: 0; font-family: serif; letter-spacing: 1px;">QUAIL INVITATIONAL</h1>
-    <div class="room-badge">ROOM: QUAIL26</div>
-  </div>
+    <div class="max-w-md mx-auto w-full min-h-screen flex flex-col bg-navy-950 shadow-2xl relative border-x border-navy-900/50">
+        
+        <!-- Header & Navigation Bar -->
+        <header class="bg-gradient-to-b from-navy-900 to-navy-950 p-4 border-b border-salmon-500/30 text-center relative overflow-hidden sticky top-0 z-30 shadow-lg">
+            <div class="relative z-10 flex flex-col items-center">
+                <h1 class="font-serif text-2xl font-extrabold tracking-wider salmon-gradient-text">QUAIL INVITATIONAL</h1>
+                <span id="room-code-badge" class="text-[10px] bg-salmon-500/20 text-salmon-400 px-2 py-0.5 rounded border border-salmon-500/40 font-mono font-bold mt-1">ROOM: QUAIL26</span>
+            </div>
 
-  <nav class="nav-tabs">
-    <a href="leaderboard.html" class="nav-tab">🏆 Leaderboard</a>
-    <a href="scorecard.html" class="nav-tab active">✏️ Scorecard</a>
-    <a href="setup.html" class="nav-tab">⚙️ Setup</a>
-  </nav>
+            <nav class="flex mt-3 bg-navy-900/80 p-1 rounded-xl border border-salmon-500/20 text-xs font-medium">
+                <a id="nav-leaderboard" href="index.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 text-slate-200 hover:text-white">
+                    <i data-lucide="trophy" class="w-3.5 h-3.5"></i>
+                    <span>Leaderboard</span>
+                </a>
+                <a id="nav-scorecard" href="scorecard.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 bg-salmon-500 text-navy-950 font-bold shadow-md">
+                    <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                    <span>Scorecard</span>
+                </a>
+                <a id="nav-setup" href="setup.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 text-slate-200 hover:text-white">
+                    <i data-lucide="settings" class="w-3.5 h-3.5"></i>
+                    <span>Setup</span>
+                </a>
+            </nav>
+        </header>
 
-  <!-- Scoring Selector Section -->
-  <div class="card">
-    <div class="scoring-header">
-      <div>
-        <div style="font-size: 0.75rem; color: var(--accent-orange); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Scoring For Team</div>
-        <select class="team-select" id="teamSelect">
-          <option value="Team 1">Team 1</option>
-          <option value="Team 2">Team 2</option>
-        </select>
-      </div>
-      <div class="total-score-box">
-        <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Total Score</div>
-        <div class="total-score">-1</div>
-      </div>
+        <!-- Main Content -->
+        <main class="flex-1 p-4 pb-20 space-y-4">
+            
+            <!-- Prominent Team Selector -->
+            <div class="bg-navy-900/80 p-3.5 rounded-2xl border-2 border-salmon-500/60 flex items-center justify-between gap-3 shadow-xl">
+                <div class="flex-1">
+                    <label class="text-[11px] uppercase tracking-wider font-extrabold text-salmon-400 block mb-1">SCORING FOR TEAM</label>
+                    <select id="scorecard-team-select" class="w-full bg-navy-950 border border-salmon-500/40 text-salmon-300 font-serif font-black text-lg rounded-xl p-2 outline-none focus:ring-2 focus:ring-salmon-400 shadow-inner"></select>
+                </div>
+                <div class="text-right flex-shrink-0 border-l border-navy-800 pl-3">
+                    <div class="text-[10px] text-slate-300 uppercase font-bold">Total Score</div>
+                    <div id="scorecard-team-total" class="font-black text-2xl text-salmon-400">E</div>
+                </div>
+            </div>
+
+            <!-- Tee Selector Sub-Bar -->
+            <div class="bg-navy-900/60 p-2.5 rounded-xl border border-navy-800 flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-200 uppercase flex items-center gap-1">
+                    <i data-lucide="flag" class="w-3.5 h-3.5 text-salmon-400"></i> Active Tee
+                </span>
+                <select id="scorecard-tee-select" class="bg-navy-950 border border-navy-700 text-salmon-300 font-semibold text-xs rounded-lg px-2.5 py-1 outline-none focus:border-salmon-500">
+                    <option value="blue">Blue Tees</option>
+                    <option value="white" selected>White Tees</option>
+                    <option value="red">Red Tees</option>
+                </select>
+            </div>
+
+            <!-- Authentic Traditional Golf Scorecard Grid -->
+            <div class="bg-navy-900/90 rounded-2xl border border-salmon-500/30 p-3 shadow-xl space-y-2 overflow-hidden">
+                <div class="flex justify-between items-center px-1">
+                    <span class="text-[10px] font-bold text-salmon-400 uppercase tracking-wider flex items-center gap-1">
+                        <i data-lucide="table" class="w-3.5 h-3.5"></i> Full Course Scorecard Grid
+                    </span>
+                    <span class="text-[9px] text-slate-300 italic">Scroll horizontally &rarr;</span>
+                </div>
+                <div class="overflow-x-auto no-scrollbar border border-navy-800 rounded-xl bg-navy-950">
+                    <table class="w-full text-center text-xs border-collapse min-w-max">
+                        <thead>
+                            <tr class="bg-navy-900/80 text-slate-300 text-[10px] uppercase font-bold border-b border-navy-800">
+                                <th class="p-2 border-r border-navy-800 text-left sticky left-0 bg-navy-900 z-10 w-16">Hole</th>
+                                <tbody id="scorecard-grid-header-holes" class="contents"></tbody>
+                                <th class="p-2 border-l border-navy-800 bg-navy-900 text-salmon-400">TOT</th>
+                            </tr>
+                            <tr class="bg-navy-950/80 text-slate-400 text-[10px] border-b border-navy-800/60">
+                                <th class="p-1 border-r border-navy-800 text-left sticky left-0 bg-navy-950 z-10">Par</th>
+                                <tbody id="scorecard-grid-pars" class="contents"></tbody>
+                                <th id="scorecard-grid-total-par" class="p-1 border-l border-navy-800 font-bold">72</th>
+                            </tr>
+                        </thead>
+                        <tbody id="scorecard-grid-team-scores"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Hole Selector Navigation -->
+            <div class="bg-navy-900/80 rounded-xl p-2 border border-salmon-500/20 shadow-md space-y-2">
+                <div class="flex items-center justify-between px-2">
+                    <button id="btn-prev-hole" class="p-2 rounded-lg bg-navy-800 text-salmon-400 font-bold"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+                    <div class="text-center">
+                        <span id="course-name-display" class="text-[10px] uppercase text-slate-300 font-semibold tracking-wider">Course Name</span>
+                        <div id="current-hole-heading" class="font-serif font-bold text-xl text-salmon-400">Hole 1</div>
+                    </div>
+                    <button id="btn-next-hole" class="p-2 rounded-lg bg-navy-800 text-salmon-400 font-bold"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+                </div>
+
+                <div id="hole-pills-container" class="flex gap-1.5 overflow-x-auto pb-1 pt-1 no-scrollbar px-1"></div>
+            </div>
+
+            <!-- Active Hole Scoring Panel -->
+            <div class="bg-gradient-to-br from-navy-900 via-navy-900 to-navy-950 p-4 rounded-2xl border border-salmon-500/30 shadow-xl space-y-4">
+                <div class="flex justify-between items-center border-b border-navy-800/80 pb-3">
+                    <div>
+                        <span class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Hole Info</span>
+                        <h2 id="card-hole-title" class="text-2xl font-serif font-bold text-white">Hole 1</h2>
+                    </div>
+                    <div class="flex gap-3 text-right">
+                        <div>
+                            <span class="text-[9px] uppercase text-slate-400 block font-bold">Par</span>
+                            <span id="card-hole-par" class="text-lg font-bold text-salmon-400">4</span>
+                        </div>
+                        <div>
+                            <span id="card-tee-label" class="text-[9px] uppercase text-slate-400 block font-bold">White Yards</span>
+                            <span id="card-hole-yards" class="text-lg font-bold text-slate-200">335</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Score Stepper -->
+                <div id="team-score-stepper-box" class="bg-navy-950/90 p-3.5 rounded-xl border border-navy-800 flex items-center justify-between">
+                    <div>
+                        <div id="team-score-title" class="text-xs font-bold text-white">Team Scramble Score</div>
+                        <div id="team-score-subtitle" class="text-[10px] text-slate-400">Total strokes taken</div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button id="btn-score-minus" class="w-10 h-10 rounded-lg bg-navy-800 text-salmon-400 font-bold text-xl flex items-center justify-center border border-navy-700">-</button>
+                        <span id="current-hole-score-display" class="font-bold text-2xl text-white w-8 text-center">0</span>
+                        <button id="btn-score-plus" class="w-10 h-10 rounded-lg bg-navy-800 text-salmon-400 font-bold text-xl flex items-center justify-center border border-navy-700">+</button>
+                    </div>
+                </div>
+
+                <!-- Personal Shot Tracking Section -->
+                <div id="personal-shots-section" class="space-y-2">
+                    <h3 class="text-xs font-bold text-salmon-400 uppercase">Personal Shots Used This Hole</h3>
+                    <div id="player-shots-list" class="space-y-2"></div>
+                </div>
+            </div>
+
+        </main>
     </div>
-  </div>
 
-  <!-- Scorecard Table -->
-  <div class="card">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-      <span style="font-size: 0.85rem; color: var(--accent-orange); letter-spacing: 1px; font-weight: bold;">田 FULL COURSE SCORECARD GRID</span>
-      <span style="font-size: 0.8rem; color: var(--text-muted);">Scroll horizontally →</span>
-    </div>
+    <script>
+        const COURSE_DATABASE = {
+            quail_hollow: {
+                name: "Quail Hollow Country Club",
+                location: "Oakham, MA",
+                tees: {
+                    blue: { name: "Blue Tees", yards: [350, 380, 165, 410, 515, 175, 390, 525, 400, 365, 170, 500, 385, 415, 180, 395, 530, 420] },
+                    white: { name: "White Tees", yards: [335, 365, 150, 390, 495, 160, 370, 505, 380, 350, 155, 480, 365, 395, 165, 375, 510, 400] },
+                    red: { name: "Red Tees", yards: [290, 320, 125, 340, 435, 130, 320, 440, 330, 305, 130, 420, 315, 345, 135, 325, 445, 350] }
+                },
+                holes: [
+                    { hole: 1, par: 4 }, { hole: 2, par: 4 }, { hole: 3, par: 3 },
+                    { hole: 4, par: 4 }, { hole: 5, par: 5 }, { hole: 6, par: 3 },
+                    { hole: 7, par: 4 }, { hole: 8, par: 5 }, { hole: 9, par: 4 },
+                    { hole: 10, par: 4 }, { hole: 11, par: 3 }, { hole: 12, par: 5 },
+                    { hole: 13, par: 4 }, { hole: 14, par: 4 }, { hole: 15, par: 3 },
+                    { hole: 16, par: 4 }, { hole: 17, par: 5 }, { hole: 18, par: 4 }
+                ]
+            }
+        };
 
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>HOLE</th>
-            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th>
-            <th>OUT</th>
-            <th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th>
-            <th>IN</th>
-            <th>TOT</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Par</strong></td>
-            <td>4</td><td>4</td><td>4</td><td>3</td><td>5</td><td>3</td><td>5</td><td>4</td><td>4</td>
-            <td><strong>36</strong></td>
-            <td>4</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>5</td><td>3</td><td>4</td>
-            <td><strong>35</strong></td>
-            <td><strong>71</strong></td>
-          </tr>
-          <tr>
-            <td><strong>Team 1</strong></td>
-            <td>4</td><td><span class="score-circle">3</span></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-            <td><strong>7</strong></td>
-            <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-            <td><strong>0</strong></td>
-            <td><strong>7</strong></td>
-          </tr>
-          <tr>
-            <td><strong>Team 2</strong></td>
-            <td><span class="score-circle">2</span></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-            <td><strong>2</strong></td>
-            <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-            <td><strong>0</strong></td>
-            <td><strong>2</strong></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+        const STORAGE_KEY = 'QUAIL_INVITATIONAL_2026_STATE';
+        const firebaseConfig = {
+            apiKey: "AIzaSyAgrl9R0YF5XHyjzsoN5iJQQwiMpyl49Ug",
+            authDomain: "quail-invitational.firebaseapp.com",
+            databaseURL: "https://quail-invitational-default-rtdb.firebaseio.com",
+            projectId: "quail-invitational",
+            storageBucket: "quail-invitational.firebasestorage.app",
+            messagingSenderId: "394140283598",
+            appId: "1:394140283598:web:3268b04be314aeb608d69f"
+        };
 
+        let db = null, dbRef = null, firebaseReady = false;
+        try { if (firebaseConfig.apiKey) { firebase.initializeApp(firebaseConfig); db = firebase.database(); firebaseReady = true; } } catch (e) {}
+
+        function getRoomCodeFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            return (params.get('room') || 'QUAIL26').toUpperCase();
+        }
+
+        const roomCode = getRoomCodeFromURL();
+        let activeHoleIdx = 0;
+        let activeTeamIdx = 0;
+
+        function updateNavLinks() {
+            document.getElementById('nav-leaderboard').href = `index.html?room=${roomCode}`;
+            document.getElementById('nav-scorecard').href = `scorecard.html?room=${roomCode}`;
+            document.getElementById('nav-setup').href = `setup.html?room=${roomCode}`;
+            document.getElementById('room-code-badge').textContent = `ROOM: ${roomCode}`;
+        }
+
+        function loadLocalState() {
+            try {
+                const saved = localStorage.getItem(`${STORAGE_KEY}_${roomCode}`);
+                if (saved) return JSON.parse(saved);
+            } catch (e) {}
+            return {
+                roomCode: roomCode,
+                selectedCourseKey: "quail_hollow",
+                selectedTeeKey: "white",
+                customCourseName: "",
+                holeCount: "18",
+                nineSelection: "front",
+                trackGroupScore: true,
+                trackPersonalShots: true,
+                teams: [
+                    { name: "Team 1", players: ["Player 1", "Player 2"], holes: [] },
+                    { name: "Team 2", players: ["Player 3", "Player 4"], holes: [] }
+                ]
+            };
+        }
+
+        let localState = loadLocalState();
+
+        function getActiveCourseHoles() {
+            const course = COURSE_DATABASE.quail_hollow;
+            const teeKey = localState.selectedTeeKey || 'white';
+            const yardsList = course.tees[teeKey] ? course.tees[teeKey].yards : course.tees.white.yards;
+            
+            const fullCourse = course.holes.map((h, i) => ({
+                ...h,
+                yards: yardsList[i] || 350
+            }));
+
+            const count = parseInt(localState.holeCount || "18", 10);
+            if (count === 18) return fullCourse;
+            if (count === 9) {
+                return localState.nineSelection === 'back' ? fullCourse.slice(9, 18) : fullCourse.slice(0, 9);
+            }
+            if (count === 6) return fullCourse.slice(0, 6);
+            return fullCourse;
+        }
+
+        function syncToFirebaseAndLocal() {
+            localStorage.setItem(`${STORAGE_KEY}_${roomCode}`, JSON.stringify(localState));
+            if (firebaseReady && db) {
+                db.ref('rooms/' + roomCode).set(localState);
+            }
+        }
+
+        function connectToRoom() {
+            if (!firebaseReady) return;
+            dbRef = db.ref('rooms/' + roomCode);
+            dbRef.on('value', (snapshot) => {
+                const remoteState = snapshot.val();
+                if (remoteState && Array.isArray(remoteState.teams)) {
+                    localState = remoteState;
+                    localStorage.setItem(`${STORAGE_KEY}_${roomCode}`, JSON.stringify(localState));
+                    renderUI();
+                }
+            });
+        }
+
+        function formatScoreBadge(score, par) {
+            if (!score || score === 0) return `<span class="text-navy-700 font-bold">-</span>`;
+            const diff = score - par;
+            if (diff <= -2) return `<span class="golf-score-eagle">${score}</span>`;
+            if (diff === -1) return `<span class="golf-score-birdie">${score}</span>`;
+            if (diff === 0) return `<span class="golf-score-par">${score}</span>`;
+            if (diff === 1) return `<span class="golf-score-bogey">${score}</span>`;
+            return `<span class="golf-score-doublebogey">${score}</span>`;
+        }
+
+        function renderScorecardGrid() {
+            const activeHoles = getActiveCourseHoles();
+            const headerRow = document.getElementById('scorecard-grid-header-holes');
+            const parRow = document.getElementById('scorecard-grid-pars');
+            const teamsBody = document.getElementById('scorecard-grid-team-scores');
+
+            headerRow.innerHTML = activeHoles.map(h => `<th class="p-1 border-r border-navy-800/60 w-8">${h.hole}</th>`).join('');
+            parRow.innerHTML = activeHoles.map(h => `<td class="p-1 border-r border-navy-800/60">${h.par}</td>`).join('');
+            
+            const totalPar = activeHoles.reduce((sum, h) => sum + h.par, 0);
+            document.getElementById('scorecard-grid-total-par').textContent = totalPar;
+
+            teamsBody.innerHTML = '';
+
+            (localState.teams || []).forEach((team, tIdx) => {
+                const isCurrentTeam = tIdx === activeTeamIdx;
+                let rowHtml = `<tr class="${isCurrentTeam ? 'bg-salmon-500/10 font-bold' : ''} border-b border-navy-800/40">`;
+                rowHtml += `<td class="p-2 border-r border-navy-800 text-left font-serif text-white sticky left-0 ${isCurrentTeam ? 'bg-navy-900 text-salmon-400 font-bold' : 'bg-navy-950'} z-10 text-[11px] truncate max-w-[80px]">${team.name}</td>`;
+
+                let teamTotalStrokes = 0;
+                activeHoles.forEach((h, hIdx) => {
+                    const holeData = team.holes ? team.holes[hIdx] : null;
+                    const score = holeData && holeData.completed ? holeData.score : 0;
+                    if (score > 0) teamTotalStrokes += score;
+
+                    const formattedBadge = holeData && holeData.completed ? formatScoreBadge(score, h.par) : `<span class="text-navy-800">-</span>`;
+                    rowHtml += `<td class="p-1 border-r border-navy-800/60">${formattedBadge}</td>`;
+                });
+
+                rowHtml += `<td class="p-1 border-l border-navy-800 font-bold ${isCurrentTeam ? 'text-salmon-400' : 'text-slate-200'}">${teamTotalStrokes || '-'}</td></tr>`;
+                teamsBody.innerHTML += rowHtml;
+            });
+        }
+
+        function calculateTeamTotal(team) {
+            if (!team || !team.holes) return "E";
+            const activeHoles = getActiveCourseHoles();
+            const playedHoles = team.holes.filter(h => h && h.completed);
+            if (playedHoles.length === 0) return "E";
+
+            let totalStrokes = 0;
+            let totalPar = 0;
+
+            team.holes.forEach((h, idx) => {
+                if (h && h.completed) {
+                    totalStrokes += (h.score || 0);
+                    totalPar += (activeHoles[idx] ? activeHoles[idx].par : 0);
+                }
+            });
+
+            const diff = totalStrokes - totalPar;
+            return diff > 0 ? `+${diff}` : (diff === 0 ? "E" : `${diff}`);
+        }
+
+        function renderPills() {
+            const container = document.getElementById('hole-pills-container');
+            container.innerHTML = '';
+            const activeHoles = getActiveCourseHoles();
+            const team = localState.teams[activeTeamIdx];
+
+            activeHoles.forEach((h, idx) => {
+                const holeData = team && team.holes ? team.holes[idx] : null;
+                const isCompleted = holeData && holeData.completed;
+                const isActive = idx === activeHoleIdx;
+
+                const btn = document.createElement('button');
+                btn.className = `flex-shrink-0 w-8 h-8 rounded-lg text-xs font-bold transition-all flex items-center justify-center ${
+                    isActive 
+                        ? 'bg-salmon-500 text-navy-950 shadow-md ring-2 ring-salmon-400' 
+                        : isCompleted 
+                            ? 'bg-navy-800 text-salmon-400 border border-navy-600' 
+                            : 'bg-navy-950 text-slate-400 border border-navy-850'
+                }`;
+                btn.textContent = h.hole;
+                btn.onclick = () => { activeHoleIdx = idx; renderUI(); };
+                container.appendChild(btn);
+            });
+        }
+
+        function renderUI() {
+            const teamSelect = document.getElementById('scorecard-team-select');
+            if (localState.teams && localState.teams.length > 0) {
+                teamSelect.innerHTML = localState.teams.map((t, idx) => `<option value="${idx}" ${idx === activeTeamIdx ? 'selected' : ''}>${t.name}</option>`).join('');
+            } else {
+                teamSelect.innerHTML = `<option>No teams</option>`;
+                return;
+            }
+
+            const teeSelect = document.getElementById('scorecard-tee-select');
+            if (teeSelect) teeSelect.value = localState.selectedTeeKey || 'white';
+
+            const activeHoles = getActiveCourseHoles();
+            if (activeHoleIdx >= activeHoles.length) activeHoleIdx = 0;
+
+            const course = COURSE_DATABASE.quail_hollow;
+            document.getElementById('course-name-display').textContent = course.name;
+
+            const team = localState.teams[activeTeamIdx];
+            if (!team.holes || team.holes.length !== activeHoles.length) {
+                team.holes = activeHoles.map(() => ({ score: 0, playerShots: Array((team.players || []).length).fill(0), completed: false }));
+            }
+
+            const currentHole = activeHoles[activeHoleIdx];
+            const holeData = team.holes[activeHoleIdx] || { score: 0, playerShots: [], completed: false };
+
+            const selectedTee = localState.selectedTeeKey || 'white';
+            const teeName = course.tees[selectedTee] ? course.tees[selectedTee].name : 'White Tees';
+
+            document.getElementById('current-hole-heading').textContent = `Hole ${currentHole.hole} (${activeHoleIdx + 1} of ${activeHoles.length})`;
+            document.getElementById('card-hole-title').textContent = `Hole ${currentHole.hole}`;
+            document.getElementById('card-hole-par').textContent = currentHole.par;
+            document.getElementById('card-tee-label').textContent = `${teeName} Yards`;
+            document.getElementById('card-hole-yards').textContent = currentHole.yards;
+            document.getElementById('current-hole-score-display').textContent = holeData.score || 0;
+            document.getElementById('scorecard-team-total').textContent = calculateTeamTotal(team);
+
+            // Group score tracking UI controls
+            const isGroupTracked = localState.trackGroupScore !== false;
+            const btnMinus = document.getElementById('btn-score-minus');
+            const btnPlus = document.getElementById('btn-score-plus');
+
+            if (!isGroupTracked) {
+                btnMinus.style.display = 'none';
+                btnPlus.style.display = 'none';
+                document.getElementById('team-score-subtitle').textContent = "Auto-calculated from personal shots";
+            } else {
+                btnMinus.style.display = 'flex';
+                btnPlus.style.display = 'flex';
+                document.getElementById('team-score-subtitle').textContent = "Total team strokes taken";
+            }
+
+            // Personal shot tracking UI section visibility
+            const isPersonalTracked = localState.trackPersonalShots !== false;
+            const personalSection = document.getElementById('personal-shots-section');
+            if (!isPersonalTracked) {
+                personalSection.style.display = 'none';
+            } else {
+                personalSection.style.display = 'block';
+                const playerShotsContainer = document.getElementById('player-shots-list');
+                playerShotsContainer.innerHTML = '';
+                (team.players || []).forEach((pName, pIdx) => {
+                    if (!pName) return;
+                    const count = (holeData.playerShots && holeData.playerShots[pIdx]) || 0;
+                    const row = document.createElement('div');
+                    row.className = "bg-navy-900/60 p-2.5 rounded-xl border border-navy-800 flex items-center justify-between";
+                    row.innerHTML = `
+                        <span class="text-xs font-semibold text-white">${pName}</span>
+                        <div class="flex items-center gap-2">
+                            <button onclick="adjustPlayerShot(${pIdx}, -1)" class="w-8 h-8 rounded-lg bg-navy-950 text-slate-200 font-bold flex items-center justify-center border border-navy-700">-</button>
+                            <span class="font-bold text-sm text-salmon-400 w-5 text-center">${count}</span>
+                            <button onclick="adjustPlayerShot(${pIdx}, 1)" class="w-8 h-8 rounded-lg bg-navy-950 text-slate-200 font-bold flex items-center justify-center border border-navy-700">+</button>
+                        </div>
+                    `;
+                    playerShotsContainer.appendChild(row);
+                });
+            }
+
+            renderScorecardGrid();
+            renderPills();
+        }
+
+        window.adjustPlayerShot = function(pIdx, delta) {
+            const team = localState.teams[activeTeamIdx];
+            if (!team.holes[activeHoleIdx].playerShots) {
+                team.holes[activeHoleIdx].playerShots = Array(team.players.length).fill(0);
+            }
+            team.holes[activeHoleIdx].playerShots[pIdx] = Math.max(0, (team.holes[activeHoleIdx].playerShots[pIdx] || 0) + delta);
+            team.holes[activeHoleIdx].completed = true;
+
+            // If team score tracking is OFF, auto-calculate team score from sum of personal shots
+            if (localState.trackGroupScore === false) {
+                const totalPersonal = team.holes[activeHoleIdx].playerShots.reduce((a, b) => a + b, 0);
+                team.holes[activeHoleIdx].score = totalPersonal;
+            }
+
+            syncToFirebaseAndLocal();
+            renderUI();
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            updateNavLinks();
+            renderUI();
+            connectToRoom();
+            lucide.createIcons();
+
+            document.getElementById('scorecard-tee-select').onchange = (e) => {
+                localState.selectedTeeKey = e.target.value;
+                syncToFirebaseAndLocal();
+                renderUI();
+            };
+
+            document.getElementById('btn-score-minus').onclick = () => {
+                if (localState.trackGroupScore === false) return;
+                const team = localState.teams[activeTeamIdx];
+                team.holes[activeHoleIdx].score = Math.max(0, team.holes[activeHoleIdx].score - 1);
+                team.holes[activeHoleIdx].completed = true;
+                syncToFirebaseAndLocal();
+                renderUI();
+            };
+
+            document.getElementById('btn-score-plus').onclick = () => {
+                if (localState.trackGroupScore === false) return;
+                const team = localState.teams[activeTeamIdx];
+                team.holes[activeHoleIdx].score += 1;
+                team.holes[activeHoleIdx].completed = true;
+                syncToFirebaseAndLocal();
+                renderUI();
+            };
+
+            document.getElementById('scorecard-team-select').onchange = (e) => {
+                activeTeamIdx = parseInt(e.target.value, 10);
+                renderUI();
+            };
+
+            document.getElementById('btn-prev-hole').onclick = () => { if (activeHoleIdx > 0) { activeHoleIdx--; renderUI(); } };
+            document.getElementById('btn-next-hole').onclick = () => {
+                const max = getActiveCourseHoles().length - 1;
+                if (activeHoleIdx < max) { activeHoleIdx++; renderUI(); }
+            };
+        });
+    </script>
 </body>
 </html>
