@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Leaderboard - Flynn Invitational 2026</title>
+    <title>Leaderboard - Quail Invitational 2026</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -19,8 +19,8 @@
             theme: {
                 extend: {
                     colors: {
-                        emerald: { 850: '#063826', 900: '#032519', 950: '#01170f' },
-                        gold: { 300: '#fde047', 400: '#facc15', 500: '#eab308', 600: '#ca8a04', 700: '#a16207' }
+                        navy: { 800: '#1e293b', 850: '#172033', 900: '#0f172a', 950: '#080d1a' },
+                        salmon: { 300: '#ffb3a1', 400: '#ff8f73', 500: '#ff7a59', 600: '#e65c3b', 700: '#cc4425' }
                     },
                     fontFamily: { serif: ['Cinzel', 'serif'], sans: ['Inter', 'sans-serif'] }
                 }
@@ -29,41 +29,41 @@
     </script>
     
     <style>
-        body { background-color: #01170f; color: #f3f4f6; font-family: 'Inter', sans-serif; }
-        .gold-gradient-text { background: linear-gradient(135deg, #fef08a 0%, #eab308 50%, #ca8a04 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .gold-gradient-bg { background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%); }
+        body { background-color: #080d1a; color: #f3f4f6; font-family: 'Inter', sans-serif; }
+        .salmon-gradient-text { background: linear-gradient(135deg, #ffb3a1 0%, #ff7a59 50%, #e65c3b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .salmon-gradient-bg { background: linear-gradient(135deg, #ff7a59 0%, #e65c3b 100%); }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between">
 
-    <div class="max-w-md mx-auto w-full min-h-screen flex flex-col bg-emerald-950 shadow-2xl relative border-x border-emerald-900/50">
+    <div class="max-w-md mx-auto w-full min-h-screen flex flex-col bg-navy-950 shadow-2xl relative border-x border-navy-900/50">
         
         <!-- Header & Navigation Bar -->
-        <header class="bg-gradient-to-b from-emerald-900 to-emerald-950 p-4 border-b border-gold-500/30 text-center relative overflow-hidden sticky top-0 z-30 shadow-lg">
+        <header class="bg-gradient-to-b from-navy-900 to-navy-950 p-4 border-b border-salmon-500/30 text-center relative overflow-hidden sticky top-0 z-30 shadow-lg">
             <div class="relative z-10 flex flex-col items-center">
                 <div class="flex items-center justify-center gap-2 mb-0.5">
-                    <i data-lucide="trees" class="w-4 h-4 text-gold-400"></i>
-                    <span class="text-[10px] font-bold tracking-widest text-gold-400 uppercase">Lake George, NY</span>
-                    <i data-lucide="trees" class="w-4 h-4 text-gold-400"></i>
+                    <i data-lucide="trees" class="w-4 h-4 text-salmon-400"></i>
+                    <span class="text-[10px] font-bold tracking-widest text-salmon-400 uppercase">Oakham, MA</span>
+                    <i data-lucide="trees" class="w-4 h-4 text-salmon-400"></i>
                 </div>
-                <h1 class="font-serif text-2xl font-extrabold tracking-wider gold-gradient-text">FLYNN INVITATIONAL</h1>
+                <h1 class="font-serif text-2xl font-extrabold tracking-wider salmon-gradient-text">QUAIL INVITATIONAL</h1>
                 <div class="flex items-center gap-2 mt-0.5">
-                    <span class="text-[10px] text-emerald-300/80 font-medium tracking-widest uppercase">EST. 2026</span>
-                    <span class="text-emerald-600">•</span>
-                    <span id="room-code-badge" class="text-[10px] bg-gold-500/20 text-gold-400 px-2 py-0.5 rounded border border-gold-500/40 font-mono font-bold">LIVE SYNC</span>
+                    <span class="text-[10px] text-slate-300/80 font-medium tracking-widest uppercase">EST. 2026</span>
+                    <span class="text-navy-600">•</span>
+                    <span id="room-code-badge" class="text-[10px] bg-salmon-500/20 text-salmon-400 px-2 py-0.5 rounded border border-salmon-500/40 font-mono font-bold">LIVE SYNC</span>
                 </div>
             </div>
 
-            <nav class="flex mt-3 bg-emerald-900/80 p-1 rounded-xl border border-gold-500/20 text-xs font-medium">
-                <a id="nav-leaderboard" href="index.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 bg-gold-500 text-emerald-950 font-bold shadow-md">
+            <nav class="flex mt-3 bg-navy-900/80 p-1 rounded-xl border border-salmon-500/20 text-xs font-medium">
+                <a id="nav-leaderboard" href="index.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 bg-salmon-500 text-navy-950 font-bold shadow-md">
                     <i data-lucide="trophy" class="w-3.5 h-3.5"></i>
                     <span>Leaderboard</span>
                 </a>
-                <a id="nav-scorecard" href="scorecard.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 text-emerald-200 hover:text-white">
+                <a id="nav-scorecard" href="scorecard.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 text-slate-200 hover:text-white">
                     <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
                     <span>Scorecard</span>
                 </a>
-                <a id="nav-setup" href="setup.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 text-emerald-200 hover:text-white">
+                <a id="nav-setup" href="setup.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 text-slate-200 hover:text-white">
                     <i data-lucide="settings" class="w-3.5 h-3.5"></i>
                     <span>Setup</span>
                 </a>
@@ -73,19 +73,19 @@
         <!-- Main Content -->
         <main class="flex-1 p-4 pb-20 space-y-5">
             
-            <div class="bg-gradient-to-r from-emerald-900 via-emerald-850 to-emerald-900 p-3 rounded-xl border border-gold-500/30 flex items-center justify-between gap-2 shadow-md">
+            <div class="bg-gradient-to-r from-navy-900 via-navy-850 to-navy-900 p-3 rounded-xl border border-salmon-500/30 flex items-center justify-between gap-2 shadow-md">
                 <div class="flex items-center gap-2.5">
-                    <div class="w-8 h-8 rounded-lg bg-gold-500/20 border border-gold-500/40 text-gold-400 flex items-center justify-center flex-shrink-0">
+                    <div class="w-8 h-8 rounded-lg bg-salmon-500/20 border border-salmon-500/40 text-salmon-400 flex items-center justify-center flex-shrink-0">
                         <i data-lucide="wifi" class="w-4 h-4"></i>
                     </div>
                     <div>
                         <div class="text-xs font-bold text-white flex items-center gap-1">
-                            Match Room: <span id="display-room-code" class="font-mono text-gold-400 font-extrabold uppercase">FLYNN26</span>
+                            Match Room: <span id="display-room-code" class="font-mono text-salmon-400 font-extrabold uppercase">QUAIL26</span>
                         </div>
-                        <div class="text-[10px] text-emerald-300/80">Share room link or view live scores</div>
+                        <div class="text-[10px] text-slate-300/80">Share room link or view live scores</div>
                     </div>
                 </div>
-                <button id="btn-copy-share-link" class="px-3 py-1.5 bg-gold-500 hover:bg-gold-400 text-emerald-950 font-bold text-xs rounded-lg flex items-center gap-1 active:scale-95 transition-transform flex-shrink-0">
+                <button id="btn-copy-share-link" class="px-3 py-1.5 bg-salmon-500 hover:bg-salmon-400 text-navy-950 font-bold text-xs rounded-lg flex items-center gap-1 active:scale-95 transition-transform flex-shrink-0">
                     <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
                     <span>Share</span>
                 </button>
@@ -93,13 +93,14 @@
 
             <!-- Active Course Header & Current Round Leaderboard -->
             <div class="space-y-3">
-                <div class="bg-emerald-900/80 p-3 rounded-xl border border-gold-500/30 text-center">
-                    <div class="text-[10px] uppercase font-bold text-emerald-300 tracking-widest">Active Golf Course</div>
-                    <div id="active-course-heading" class="font-serif font-black text-lg text-gold-400">Olde Kinderhook Golf Club</div>
+                <div class="bg-navy-900/80 p-3 rounded-xl border border-salmon-500/30 text-center">
+                    <div class="text-[10px] uppercase font-bold text-slate-300 tracking-widest">Active Golf Course</div>
+                    <div id="active-course-heading" class="font-serif font-black text-lg text-salmon-400">Quail Hollow Country Club</div>
+                    <div id="active-tee-heading" class="text-xs text-slate-300 font-semibold mt-0.5">White Tees</div>
                 </div>
 
                 <div class="flex justify-between items-center px-1">
-                    <h2 class="font-serif font-bold text-base text-gold-400 flex items-center gap-1.5">
+                    <h2 class="font-serif font-bold text-base text-salmon-400 flex items-center gap-1.5">
                         <i data-lucide="trophy" class="w-4 h-4"></i> Current Round Team Leaderboard
                     </h2>
                 </div>
@@ -108,26 +109,26 @@
             </div>
 
             <!-- Active Course Individual Shot Tracker -->
-            <div id="active-round-mvp-box" class="bg-emerald-900/40 p-4 rounded-xl border border-emerald-800/80 space-y-3">
+            <div id="active-round-mvp-box" class="bg-navy-900/40 p-4 rounded-xl border border-navy-800/80 space-y-3">
                 <h3 class="font-serif font-bold text-white text-sm flex items-center gap-2">
-                    <i data-lucide="pie-chart" class="w-4 h-4 text-gold-400"></i> Active Round Shot Contributions
+                    <i data-lucide="pie-chart" class="w-4 h-4 text-salmon-400"></i> Active Round Shot Contributions
                 </h3>
-                <p class="text-[11px] text-emerald-300/70">Team shots used per golfer in the active round.</p>
+                <p class="text-[11px] text-slate-300/70">Team shots used per golfer in the active round.</p>
                 <div id="individual-stats-container" class="space-y-3"></div>
             </div>
 
             <!-- Section Divider -->
             <div class="relative my-6">
-                <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-gold-500/40"></div></div>
-                <div class="relative flex justify-center text-xs uppercase"><span class="bg-emerald-950 px-3 text-gold-400 font-serif font-bold tracking-widest">All-Round History</span></div>
+                <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-salmon-500/40"></div></div>
+                <div class="relative flex justify-center text-xs uppercase"><span class="bg-navy-950 px-3 text-salmon-400 font-serif font-bold tracking-widest">All-Round History</span></div>
             </div>
 
             <!-- Multi-Round Accumulated MVP Tracker -->
-            <div class="bg-emerald-900/60 p-4 rounded-xl border-2 border-gold-500/40 space-y-3 shadow-xl">
-                <h3 class="font-serif font-bold text-gold-400 text-base flex items-center gap-2">
-                    <i data-lucide="award" class="w-5 h-5 text-gold-400"></i> Running Shot Contributions Across All Rounds
+            <div class="bg-navy-900/60 p-4 rounded-xl border-2 border-salmon-500/40 space-y-3 shadow-xl">
+                <h3 class="font-serif font-bold text-salmon-400 text-base flex items-center gap-2">
+                    <i data-lucide="award" class="w-5 h-5 text-salmon-400"></i> Running Shot Contributions Across All Rounds
                 </h3>
-                <p class="text-[11px] text-emerald-300/80">Cumulative shots used per player across all played courses and team setups.</p>
+                <p class="text-[11px] text-slate-300/80">Cumulative shots used per player across all played courses and team setups.</p>
                 <div id="all-round-mvp-container" class="space-y-2 pt-1"></div>
             </div>
 
@@ -136,59 +137,32 @@
 
     <script>
         const COURSE_DATABASE = {
-            kinderhook: {
-                name: "Olde Kinderhook Golf Club",
+            quail_hollow: {
+                name: "Quail Hollow Country Club",
+                location: "Oakham, MA",
+                tees: {
+                    blue: { name: "Blue Tees", yards: [350, 380, 165, 410, 515, 175, 390, 525, 400, 365, 170, 500, 385, 415, 180, 395, 530, 420] },
+                    white: { name: "White Tees", yards: [335, 365, 150, 390, 495, 160, 370, 505, 380, 350, 155, 480, 365, 395, 165, 375, 510, 400] },
+                    red: { name: "Red Tees", yards: [290, 320, 125, 340, 435, 130, 320, 440, 330, 305, 130, 420, 315, 345, 135, 325, 445, 350] }
+                },
                 holes: [
-                    { hole: 1, par: 4, yards: 375 }, { hole: 2, par: 5, yards: 495 }, { hole: 3, par: 3, yards: 160 },
-                    { hole: 4, par: 4, yards: 385 }, { hole: 5, par: 4, yards: 360 }, { hole: 6, par: 3, yards: 175 },
-                    { hole: 7, par: 4, yards: 405 }, { hole: 8, par: 5, yards: 510 }, { hole: 9, par: 4, yards: 350 },
-                    { hole: 10, par: 4, yards: 390 }, { hole: 11, par: 3, yards: 155 }, { hole: 12, par: 5, yards: 520 },
-                    { hole: 13, par: 4, yards: 370 }, { hole: 14, par: 4, yards: 415 }, { hole: 15, par: 3, yards: 165 },
-                    { hole: 16, par: 4, yards: 380 }, { hole: 17, par: 5, yards: 505 }, { hole: 18, par: 4, yards: 425 }
-                ]
-            },
-            hartford: {
-                name: "Hartford Greens Country Club",
-                holes: [
-                    { hole: 1, par: 4, yards: 365 }, { hole: 2, par: 5, yards: 485 }, { hole: 3, par: 3, yards: 150 },
-                    { hole: 4, par: 4, yards: 375 }, { hole: 5, par: 4, yards: 350 }, { hole: 6, par: 3, yards: 160 },
-                    { hole: 7, par: 4, yards: 390 }, { hole: 8, par: 5, yards: 500 }, { hole: 9, par: 4, yards: 340 },
-                    { hole: 10, par: 4, yards: 380 }, { hole: 11, par: 3, yards: 145 }, { hole: 12, par: 5, yards: 510 },
-                    { hole: 13, par: 4, yards: 360 }, { hole: 14, par: 4, yards: 400 }, { hole: 15, par: 3, yards: 155 },
-                    { hole: 16, par: 4, yards: 370 }, { hole: 17, par: 5, yards: 495 }, { hole: 18, par: 4, yards: 410 }
-                ]
-            },
-            topoftheworld: {
-                name: "Top of the World Golf Resort",
-                holes: [
-                    { hole: 1, par: 4, yards: 350 }, { hole: 2, par: 4, yards: 360 }, { hole: 3, par: 3, yards: 145 },
-                    { hole: 4, par: 5, yards: 480 }, { hole: 5, par: 4, yards: 340 }, { hole: 6, par: 3, yards: 155 },
-                    { hole: 7, par: 4, yards: 375 }, { hole: 8, par: 5, yards: 490 }, { hole: 9, par: 4, yards: 330 },
-                    { hole: 10, par: 4, yards: 365 }, { hole: 11, par: 3, yards: 140 }, { hole: 12, par: 5, yards: 500 },
-                    { hole: 13, par: 4, yards: 350 }, { hole: 14, par: 4, yards: 385 }, { hole: 15, par: 3, yards: 160 },
-                    { hole: 16, par: 4, yards: 360 }, { hole: 17, par: 5, yards: 485 }, { hole: 18, par: 4, yards: 395 }
-                ]
-            },
-            saratogalake: {
-                name: "Saratoga Lake Golf Club",
-                holes: [
-                    { hole: 1, par: 4, yards: 370 }, { hole: 2, par: 5, yards: 490 }, { hole: 3, par: 3, yards: 155 },
-                    { hole: 4, par: 4, yards: 380 }, { hole: 5, par: 4, yards: 355 }, { hole: 6, par: 3, yards: 170 },
-                    { hole: 7, par: 4, yards: 400 }, { hole: 8, par: 5, yards: 505 }, { hole: 9, par: 4, yards: 345 },
-                    { hole: 10, par: 4, yards: 385 }, { hole: 11, par: 3, yards: 150 }, { hole: 12, par: 5, yards: 515 },
-                    { hole: 13, par: 4, yards: 365 }, { hole: 14, par: 4, yards: 405 }, { hole: 15, par: 3, yards: 160 },
-                    { hole: 16, par: 4, yards: 375 }, { hole: 17, par: 5, yards: 500 }, { hole: 18, par: 4, yards: 420 }
+                    { hole: 1, par: 4 }, { hole: 2, par: 4 }, { hole: 3, par: 3 },
+                    { hole: 4, par: 4 }, { hole: 5, par: 5 }, { hole: 6, par: 3 },
+                    { hole: 7, par: 4 }, { hole: 8, par: 5 }, { hole: 9, par: 4 },
+                    { hole: 10, par: 4 }, { hole: 11, par: 3 }, { hole: 12, par: 5 },
+                    { hole: 13, par: 4 }, { hole: 14, par: 4 }, { hole: 15, par: 3 },
+                    { hole: 16, par: 4 }, { hole: 17, par: 5 }, { hole: 18, par: 4 }
                 ]
             }
         };
 
-        const STORAGE_KEY = 'FLYNN_INVITATIONAL_2026_STATE';
+        const STORAGE_KEY = 'QUAIL_INVITATIONAL_2026_STATE';
         const firebaseConfig = {
             apiKey: "AIzaSyAgrl9R0YF5XHyjzsoN5iJQQwiMpyl49Ug",
-            authDomain: "flynn-invitational.firebaseapp.com",
-            databaseURL: "https://flynn-invitational-default-rtdb.firebaseio.com",
-            projectId: "flynn-invitational",
-            storageBucket: "flynn-invitational.firebasestorage.app",
+            authDomain: "quail-invitational.firebaseapp.com",
+            databaseURL: "https://quail-invitational-default-rtdb.firebaseio.com",
+            projectId: "quail-invitational",
+            storageBucket: "quail-invitational.firebasestorage.app",
             messagingSenderId: "394140283598",
             appId: "1:394140283598:web:3268b04be314aeb608d69f"
         };
@@ -198,7 +172,7 @@
 
         function getRoomCodeFromURL() {
             const params = new URLSearchParams(window.location.search);
-            return (params.get('room') || 'FLYNN26').toUpperCase();
+            return (params.get('room') || 'QUAIL26').toUpperCase();
         }
 
         const roomCode = getRoomCodeFromURL();
@@ -216,7 +190,8 @@
             } catch (e) {}
             return {
                 roomCode: roomCode,
-                selectedCourseKey: "kinderhook",
+                selectedCourseKey: "quail_hollow",
+                selectedTeeKey: "white",
                 customCourseName: "",
                 holeCount: "18",
                 nineSelection: "front",
@@ -229,21 +204,16 @@
 
         let localState = loadLocalState();
 
-        function generateCustomCourseHoles(count) {
-            const holes = [];
-            for (let i = 1; i <= count; i++) {
-                holes.push({ hole: i, par: 4, yards: 350 });
-            }
-            return holes;
-        }
-
         function getActiveCourseHoles() {
-            let fullCourse;
-            if (localState.selectedCourseKey === 'custom') {
-                fullCourse = generateCustomCourseHoles(18);
-            } else {
-                fullCourse = COURSE_DATABASE[localState.selectedCourseKey || 'kinderhook'].holes;
-            }
+            const course = COURSE_DATABASE.quail_hollow;
+            const teeKey = localState.selectedTeeKey || 'white';
+            const yardsList = course.tees[teeKey] ? course.tees[teeKey].yards : course.tees.white.yards;
+            
+            const fullCourse = course.holes.map((h, i) => ({
+                ...h,
+                yards: yardsList[i] || 350
+            }));
+
             const count = parseInt(localState.holeCount || "18", 10);
             if (count === 18) return fullCourse;
             if (count === 9) {
@@ -289,18 +259,19 @@
         }
 
         function renderLeaderboard() {
-            const courseName = localState.selectedCourseKey === 'custom' 
-                ? (localState.customCourseName || "Custom Course") 
-                : COURSE_DATABASE[localState.selectedCourseKey || 'kinderhook'].name;
+            const course = COURSE_DATABASE.quail_hollow;
+            const teeKey = localState.selectedTeeKey || 'white';
+            const teeName = course.tees[teeKey] ? course.tees[teeKey].name : 'White Tees';
 
-            document.getElementById('active-course-heading').textContent = `${courseName} (${localState.holeCount || 18} Holes)`;
+            document.getElementById('active-course-heading').textContent = `${course.name} (${localState.holeCount || 18} Holes)`;
+            document.getElementById('active-tee-heading').textContent = teeName;
 
             const container = document.getElementById('leaderboard-cards-container');
             if (!container) return;
             container.innerHTML = '';
 
             if (!localState.teams || localState.teams.length === 0) {
-                container.innerHTML = `<div class="text-center text-xs text-emerald-400 py-8">No teams setup yet. Go to Setup tab to configure teams.</div>`;
+                container.innerHTML = `<div class="text-center text-xs text-slate-400 py-8">No teams setup yet. Go to Setup tab to configure teams.</div>`;
                 return;
             }
 
@@ -310,19 +281,19 @@
             ranked.forEach((t, rank) => {
                 const isFirst = rank === 0;
                 const card = document.createElement('div');
-                card.className = `p-4 rounded-2xl border ${isFirst ? 'bg-gradient-to-br from-emerald-900 via-emerald-950 to-emerald-950 border-gold-500 shadow-xl' : 'bg-emerald-900/50 border-emerald-800'}`;
+                card.className = `p-4 rounded-2xl border ${isFirst ? 'bg-gradient-to-br from-navy-900 via-navy-950 to-navy-950 border-salmon-500 shadow-xl' : 'bg-navy-900/50 border-navy-800'}`;
                 card.innerHTML = `
                     <div class="flex justify-between items-start mb-2.5">
                         <div class="flex items-center gap-2.5">
-                            <span class="w-7 h-7 rounded-full ${isFirst ? 'bg-gold-500 text-emerald-950' : 'bg-emerald-800 text-emerald-200'} text-xs font-bold flex items-center justify-center">${rank + 1}</span>
+                            <span class="w-7 h-7 rounded-full ${isFirst ? 'bg-salmon-500 text-navy-950' : 'bg-navy-800 text-slate-200'} text-xs font-bold flex items-center justify-center">${rank + 1}</span>
                             <div>
                                 <h3 class="font-serif font-bold text-white text-base">${t.name}</h3>
-                                <p class="text-[11px] text-emerald-400">${(t.players || []).filter(Boolean).join(', ')}</p>
+                                <p class="text-[11px] text-slate-400">${(t.players || []).filter(Boolean).join(', ')}</p>
                             </div>
                         </div>
                         <div class="text-right">
-                            <div class="font-bold text-xl ${isFirst ? 'gold-gradient-text' : 'text-emerald-200'}">${t.stats.diffFormatted}</div>
-                            <div class="text-[10px] text-emerald-400">${t.stats.totalStrokes} Strokes • <span class="text-gold-400 font-semibold">${t.stats.thru}</span></div>
+                            <div class="font-bold text-xl ${isFirst ? 'salmon-gradient-text' : 'text-slate-200'}">${t.stats.diffFormatted}</div>
+                            <div class="text-[10px] text-slate-400">${t.stats.totalStrokes} Strokes • <span class="text-salmon-400 font-semibold">${t.stats.thru}</span></div>
                         </div>
                     </div>
                 `;
@@ -346,19 +317,19 @@
 
                 const maxShots = Math.max(1, ...playerCounts.map(p => p.count));
                 const block = document.createElement('div');
-                block.className = "bg-emerald-950 p-3 rounded-lg border border-emerald-800/60 space-y-2";
+                block.className = "bg-navy-950 p-3 rounded-lg border border-navy-800/60 space-y-2";
                 let rowsHtml = playerCounts.map(p => `
                     <div class="space-y-1">
                         <div class="flex justify-between text-xs">
                             <span class="text-white font-medium">${p.name}</span>
-                            <span class="text-gold-400 font-bold">${p.count} shots</span>
+                            <span class="text-salmon-400 font-bold">${p.count} shots</span>
                         </div>
-                        <div class="w-full h-1.5 bg-emerald-900 rounded-full overflow-hidden">
-                            <div class="h-full gold-gradient-bg rounded-full" style="width: ${Math.min(100, (p.count / maxShots) * 100)}%"></div>
+                        <div class="w-full h-1.5 bg-navy-900 rounded-full overflow-hidden">
+                            <div class="h-full salmon-gradient-bg rounded-full" style="width: ${Math.min(100, (p.count / maxShots) * 100)}%"></div>
                         </div>
                     </div>
                 `).join('');
-                block.innerHTML = `<div class="text-[11px] font-bold text-gold-400 uppercase">${t.name}</div>${rowsHtml}`;
+                block.innerHTML = `<div class="text-[11px] font-bold text-salmon-400 uppercase">${t.name}</div>${rowsHtml}`;
                 indStatsContainer.appendChild(block);
             });
 
@@ -382,7 +353,7 @@
                 .sort((a, b) => b.totalShots - a.totalShots);
 
             if (sortedAllTimePlayers.length === 0) {
-                allMvpContainer.innerHTML = `<div class="text-xs text-emerald-400 italic">No player shots logged yet.</div>`;
+                allMvpContainer.innerHTML = `<div class="text-xs text-slate-400 italic">No player shots logged yet.</div>`;
                 return;
             }
 
@@ -390,17 +361,17 @@
 
             sortedAllTimePlayers.forEach((p, idx) => {
                 const row = document.createElement('div');
-                row.className = "space-y-1 bg-emerald-950/80 p-2.5 rounded-lg border border-emerald-800/60";
+                row.className = "space-y-1 bg-navy-950/80 p-2.5 rounded-lg border border-navy-800/60";
                 row.innerHTML = `
                     <div class="flex justify-between items-center text-xs">
                         <span class="text-white font-bold flex items-center gap-1.5">
-                            <span class="text-[10px] bg-emerald-800 text-gold-300 px-1.5 py-0.5 rounded font-mono">${idx + 1}</span>
+                            <span class="text-[10px] bg-navy-800 text-salmon-300 px-1.5 py-0.5 rounded font-mono">${idx + 1}</span>
                             ${p.name}
                         </span>
-                        <span class="text-gold-400 font-extrabold">${p.totalShots} Total Shots</span>
+                        <span class="text-salmon-400 font-extrabold">${p.totalShots} Total Shots</span>
                     </div>
-                    <div class="w-full h-2 bg-emerald-900 rounded-full overflow-hidden mt-1">
-                        <div class="h-full gold-gradient-bg rounded-full" style="width: ${Math.min(100, (p.totalShots / maxAllTimeShots) * 100)}%"></div>
+                    <div class="w-full h-2 bg-navy-900 rounded-full overflow-hidden mt-1">
+                        <div class="h-full salmon-gradient-bg rounded-full" style="width: ${Math.min(100, (p.totalShots / maxAllTimeShots) * 100)}%"></div>
                     </div>
                 `;
                 allMvpContainer.appendChild(row);
