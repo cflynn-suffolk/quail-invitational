@@ -1,16 +1,9 @@
-# Quail Invitational Score Tracking App
+# Quail Invitational 2026
 
-A custom golf tournament live-scoring web application built for the **Quail Invitational** at Quail Hollow Golf Course in Oakham, MA.
+A real-time golf scramble leaderboard and scorecard tracker customized for the **Quail Invitational** at Quail Hollow Golf & Country Club in Oakham, MA[cite: 8].
 
-## Repository Structure
-```text
-quail-invitational/
-├── index.html          # Live Leaderboard
-├── scorecard.html      # Scorecard Entry View
-├── setup.html          # Tournament & Team Setup
-├── README.md           # Documentation
-├── css/
-│   └── styles.css      # Custom Golf Theme Styling
-└── js/
-    ├── firebase-config.js # Firebase Connection Config
-    └── app.js          # Main Application Logic
+## Features
+- **Live Syncing**: Integrated Firebase Realtime Database for live scoring synchronization across all devices[cite: 8].
+- **Light Navy & Salmon Pink Color Scheme**: Modern, clean responsive design formatted for mobile displays[cite: 8].
+- **Quail Hollow Golf Club Integration**: Course par and yardage breakdown pre-configured[cite: 8].
+- **Shot Contribution Tracking**: Tracks both overall team scramble scores and individual shot counts per player[cite: 8, 10].
