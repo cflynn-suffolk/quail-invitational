@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Leaderboard - Quail Invitational 2026</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: { 800: '#1e293b', 850: '#141e33', 900: '#0f172a', 950: '#080d1a' },
+                        salmon: { 300: '#fca5a5', 400: '#ff8a7a', 500: '#ff7f6e', 600: '#e05343', 700: '#c23829' }
+                    },
+                    fontFamily: { serif: ['Cinzel', 'serif'], sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body { background-color: #080d1a; color: #f3f4f6; font-family: 'Inter', sans-serif; }
+        .salmon-gradient-text { background: linear-gradient(135deg, #fca5a5 0%, #ff7f6e 50%, #e05343 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .salmon-gradient-bg { background: linear-gradient(135deg, #ff7f6e 0%, #e05343 100%); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <div class="max-w-md mx-auto w-full min-h-screen flex flex-col bg-navy-950 shadow-2xl relative border-x border-navy-850">
+        
+        <!-- Header & Navigation Bar -->
+        <header class="bg-gradient-to-b from-navy-900 to-navy-950 p-4 border-b border-salmon-500/30 text-center relative overflow-hidden sticky top-0 z-30 shadow-lg">
+            <div class="relative z-10 flex flex-col items-center">
+                <div class="flex items-center justify-center gap-2 mb-0.5">
+                    <i data-lucide="trees" class="w-4 h-4 text-salmon-400"></i>
+                    <span class="text-[10px] font-bold tracking-widest text-salmon-400 uppercase">Oakham, MA</span>
+                    <i data-lucide="trees" class="w-4 h-4 text-salmon-400"></i>
+                </div>
+                <h1 class="font-serif text-2xl font-extrabold tracking-wider salmon-gradient-text">QUAIL INVITATIONAL</h1>
+                <div class="flex items-center gap-2 mt-0.5">
+                    <span class="text-[10px] text-slate-300/80 font-medium tracking-widest uppercase">EST. 2026</span>
+                    <span class="text-slate-600">•</span>
+                    <span id="room-code-badge" class="text-[10px] bg-salmon-500/20 text-salmon-400 px-2 py-0.5 rounded border border-salmon-500/40 font-mono font-bold">LIVE SYNC</span>
+                </div>
+            </div>
+
+            <nav class="flex mt-3 bg-navy-900/80 p-1 rounded-xl border border-salmon-500/20 text-xs font-medium">
+                <a id="nav-leaderboard" href="index.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 bg-salmon-500 text-navy-950 font-bold shadow-md">
+                    <i data-lucide="trophy" class="w-3.5 h-3.5"></i>
+                    <span>Leaderboard</span>
+                </a>
+                <a id="nav-scorecard" href="scorecard.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 text-slate-200 hover:text-white">
+                    <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                    <span>Scorecard</span>
+                </a>
+                <a id="nav-setup" href="setup.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 text-slate-200 hover:text-white">
+                    <i data-lucide="settings" class="w-3.5 h-3.5"></i>
+                    <span>Setup</span>
+                </a>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-4 pb-20 space-y-5">
+            
+            <div class="bg-gradient-to-r from-navy-900 via-navy-850 to-navy-900 p-3 rounded-xl border border-salmon-500/30 flex items-center justify-between gap-2 shadow-md">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-salmon-500/20 border border-salmon-500/40 text-salmon-400 flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="wifi" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs font-bold text-white flex items-center gap-1">
+                            Match Room: <span id="display-room-code" class="font-mono text-salmon-400 font-extrabold uppercase">QUAIL26</span>
+                        </div>
+                        <div class="text-[10px] text-slate-300/80">Share room link or view live scores</div>
+                    </div>
+                </div>
+                <button id="btn-copy-share-link" class="px-3 py-1.5 bg-salmon-500 hover:bg-salmon-400 text-navy-950 font-bold text-xs rounded-lg flex items-center gap-1 active:scale-95 transition-transform flex-shrink-0">
+                    <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
+                    <span>Share</span>
+                </button>
+            </div>
+
+            <!-- Active Course Header & Current Round Leaderboard -->
+            <div class="space-y-3">
+                <div class="bg-navy-900/80 p-3 rounded-xl border border-salmon-500/30 text-center">
+                    <div class="text-[10px] uppercase font-bold text-slate-300 tracking-widest">Active Golf Course</div>
+                    <div id="active-course-heading" class="font-serif font-black text-lg text-salmon-400">Quail Hollow Golf Country Club</div>
+                </div>
+
+                <div class="flex justify-between items-center px-1">
+                    <h2 class="font-serif font-bold text-base text-salmon-400 flex items-center gap-1.5">
+                        <i data-lucide="trophy" class="w-4 h-4"></i> Current Round Team Leaderboard
+                    </h2>
+                </div>
+
+                <div id="leaderboard-cards-container" class="space-y-3"></div>
+            </div>
+
+            <!-- Active Course Individual Shot Tracker -->
+            <div id="active-round-mvp-box" class="bg-navy-900/40 p-4 rounded-xl border border-navy-800 space-y-3">
+                <h3 class="font-serif font-bold text-white text-sm flex items-center gap-2">
+                    <i data-lucide="pie-chart" class="w-4 h-4 text-salmon-400"></i> Active Round Shot Contributions
+                </h3>
+                <p class="text-[11px] text-slate-300/70">Team shots used per golfer in the active round.</p>
+                <div id="individual-stats-container" class="space-y-3"></div>
+            </div>
+
+            <!-- Section Divider -->
+            <div class="relative my-6">
+                <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-salmon-500/40"></div></div>
+                <div class="relative flex justify-center text-xs uppercase"><span class="bg-navy-950 px-3 text-salmon-400 font-serif font-bold tracking-widest">All-Round History</span></div>
+            </div>
+
+            <!-- Multi-Round Accumulated MVP Tracker -->
+            <div class="bg-navy-900/60 p-4 rounded-xl border-2 border-salmon-500/40 space-y-3 shadow-xl">
+                <h3 class="font-serif font-bold text-salmon-400 text-base flex items-center gap-2">
+                    <i data-lucide="award" class="w-5 h-5 text-salmon-400"></i> Running Shot Contributions Across All Rounds
+                </h3>
+                <p class="text-[11px] text-slate-300/80">Cumulative shots used per player across all played courses and team setups.</p>
+                <div id="all-round-mvp-container" class="space-y-2 pt-1"></div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        const COURSE_DATABASE = {
+            quailhollow: {
+                name: "Quail Hollow Golf & Country Club",
+                location: "Oakham, MA",
+                holes: [
+                    { hole: 1, par: 4, yards: 335 }, { hole: 2, par: 4, yards: 360 }, { hole: 3, par: 3, yards: 155 },
+                    { hole: 4, par: 5, yards: 485 }, { hole: 5, par: 4, yards: 340 }, { hole: 6, par: 3, yards: 165 },
+                    { hole: 7, par: 4, yards: 375 }, { hole: 8, par: 5, yards: 495 }, { hole: 9, par: 4, yards: 330 },
+                    { hole: 10, par: 4, yards: 350 }, { hole: 11, par: 3, yards: 145 }, { hole: 12, par: 5, yards: 505 },
+                    { hole: 13, par: 4, yards: 360 }, { hole: 14, par: 4, yards: 380 }, { hole: 15, par: 3, yards: 160 },
+                    { hole: 16, par: 4, yards: 370 }, { hole: 17, par: 5, yards: 490 }, { hole: 18, par: 4, yards: 400 }
+                ]
+            }
+        };
+
+        const STORAGE_KEY = 'QUAIL_INVITATIONAL_2026_STATE';
+        const firebaseConfig = {
+            apiKey: "AIzaSyAgrl9R0YF5XHyjzsoN5iJQQwiMpyl49Ug",
+            authDomain: "quail-invitational.firebaseapp.com",
+            databaseURL: "https://quail-invitational-default-rtdb.firebaseio.com",
+            projectId: "quail-invitational",
+            storageBucket: "quail-invitational.firebasestorage.app",
+            messagingSenderId: "394140283598",
+            appId: "1:394140283598:web:3268b04be314aeb608d69f"
+        };
+
+        let db = null, dbRef = null, firebaseReady = false;
+        try { if (firebaseConfig.apiKey) { firebase.initializeApp(firebaseConfig); db = firebase.database(); firebaseReady = true; } } catch (e) {}
+
+        function getRoomCodeFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            return (params.get('room') || 'QUAIL26').toUpperCase();
+        }
+
+        const roomCode = getRoomCodeFromURL();
+
+        function updateNavLinks() {
+            document.getElementById('nav-leaderboard').href = `index.html?room=${roomCode}`;
+            document.getElementById('nav-scorecard').href = `scorecard.html?room=${roomCode}`;
+            document.getElementById('nav-setup').href = `setup.html?room=${roomCode}`;
+        }
+
+        function loadLocalState() {
+            try {
+                const saved = localStorage.getItem(`${STORAGE_KEY}_${roomCode}`);
+                if (saved) return JSON.parse(saved);
+            } catch (e) {}
+            return {
+                roomCode: roomCode,
+                selectedCourseKey: "quailhollow",
+                customCourseName: "",
+                holeCount: "18",
+                nineSelection: "front",
+                trackGroupScore: true,
+                trackPersonalShots: true,
+                teams: [],
+                history: []
+            };
+        }
+
+        let localState = loadLocalState();
+
+        function generateCustomCourseHoles(count) {
+            const holes = [];
+            for (let i = 1; i <= count; i++) {
+                holes.push({ hole: i, par: 4, yards: 350 });
+            }
+            return holes;
+        }
+
+        function getActiveCourseHoles() {
+            let fullCourse;
+            if (localState.selectedCourseKey === 'custom') {
+                fullCourse = generateCustomCourseHoles(18);
+            } else {
+                fullCourse = (COURSE_DATABASE[localState.selectedCourseKey] || COURSE_DATABASE.quailhollow).holes;
+            }
+            const count = parseInt(localState.holeCount || "18", 10);
+            if (count === 18) return fullCourse;
+            if (count === 9) {
+                return localState.nineSelection === 'back' ? fullCourse.slice(9, 18) : fullCourse.slice(0, 9);
+            }
+            if (count === 6) return fullCourse.slice(0, 6);
+            return fullCourse;
+        }
+
+        function connectToRoom() {
+            if (!firebaseReady) return;
+            if (dbRef) dbRef.off();
+            dbRef = db.ref('rooms/' + roomCode);
+            dbRef.on('value', (snapshot) => {
+                const remoteState = snapshot.val();
+                if (remoteState && Array.isArray(remoteState.teams)) {
+                    localState = remoteState;
+                    localStorage.setItem(`${STORAGE_KEY}_${roomCode}`, JSON.stringify(localState));
+                    renderLeaderboard();
+                }
+            });
+        }
+
+        function calculateTeamStats(team) {
+            const activeHoles = getActiveCourseHoles();
+            const playedHoles = (team.holes || []).filter(h => h && h.completed);
+            const completedHolesCount = playedHoles.length;
+
+            let totalStrokes = 0;
+            let totalPar = 0;
+
+            (team.holes || []).forEach((h, idx) => {
+                if (h && h.completed) {
+                    totalStrokes += (h.score || 0);
+                    totalPar += (activeHoles[idx] ? activeHoles[idx].par : 0);
+                }
+            });
+
+            const diff = totalStrokes - totalPar;
+            let diffFormatted = diff > 0 ? `+${diff}` : (diff === 0 ? "E" : `${diff}`);
+            const thru = completedHolesCount === activeHoles.length ? "F" : (completedHolesCount === 0 ? "NP" : `Thru ${completedHolesCount}`);
+            return { totalStrokes, diffFormatted, thru, diff };
+        }
+
+        function renderLeaderboard() {
+            const courseName = localState.selectedCourseKey === 'custom' 
+                ? (localState.customCourseName || "Custom Course") 
+                : (COURSE_DATABASE[localState.selectedCourseKey] || COURSE_DATABASE.quailhollow).name;
+
+            document.getElementById('active-course-heading').textContent = `${courseName} (${localState.holeCount || 18} Holes)`;
+
+            const container = document.getElementById('leaderboard-cards-container');
+            if (!container) return;
+            container.innerHTML = '';
+
+            if (!localState.teams || localState.teams.length === 0) {
+                container.innerHTML = `<div class="text-center text-xs text-slate-400 py-8">No teams setup yet. Go to Setup tab to configure teams.</div>`;
+                return;
+            }
+
+            const ranked = localState.teams.map((t) => ({ ...t, stats: calculateTeamStats(t) }))
+                .sort((a, b) => a.stats.diff - b.stats.diff);
+
+            ranked.forEach((t, rank) => {
+                const isFirst = rank === 0;
+                const card = document.createElement('div');
+                card.className = `p-4 rounded-2xl border ${isFirst ? 'bg-gradient-to-br from-navy-900 via-navy-950 to-navy-950 border-salmon-500 shadow-xl' : 'bg-navy-900/50 border-navy-800'}`;
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-2.5">
+                        <div class="flex items-center gap-2.5">
+                            <span class="w-7 h-7 rounded-full ${isFirst ? 'bg-salmon-500 text-navy-950' : 'bg-navy-800 text-slate-200'} text-xs font-bold flex items-center justify-center">${rank + 1}</span>
+                            <div>
+                                <h3 class="font-serif font-bold text-white text-base">${t.name}</h3>
+                                <p class="text-[11px] text-slate-400">${(t.players || []).filter(Boolean).join(', ')}</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-bold text-xl ${isFirst ? 'salmon-gradient-text' : 'text-slate-200'}">${t.stats.diffFormatted}</div>
+                            <div class="text-[10px] text-slate-400">${t.stats.totalStrokes} Strokes • <span class="text-salmon-400 font-semibold">${t.stats.thru}</span></div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            // Active Round MVP Stats
+            const indStatsContainer = document.getElementById('individual-stats-container');
+            indStatsContainer.innerHTML = '';
+            
+            const playerAllRoundTotals = {};
+
+            localState.teams.forEach(t => {
+                const playerCounts = (t.players || []).map((p, pIdx) => {
+                    const shots = (t.holes || []).reduce((sum, h) => sum + ((h.playerShots && h.playerShots[pIdx]) || 0), 0);
+                    if (p) {
+                        playerAllRoundTotals[p] = (playerAllRoundTotals[p] || 0) + shots;
+                    }
+                    return { name: p, count: shots };
+                }).filter(p => p.name);
+
+                const maxShots = Math.max(1, ...playerCounts.map(p => p.count));
+                const block = document.createElement('div');
+                block.className = "bg-navy-950 p-3 rounded-lg border border-navy-800 space-y-2";
+                let rowsHtml = playerCounts.map(p => `
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-xs">
+                            <span class="text-white font-medium">${p.name}</span>
+                            <span class="text-salmon-400 font-bold">${p.count} shots</span>
+                        </div>
+                        <div class="w-full h-1.5 bg-navy-900 rounded-full overflow-hidden">
+                            <div class="h-full salmon-gradient-bg rounded-full" style="width: ${Math.min(100, (p.count / maxShots) * 100)}%"></div>
+                        </div>
+                    </div>
+                `).join('');
+                block.innerHTML = `<div class="text-[11px] font-bold text-salmon-400 uppercase">${t.name}</div>${rowsHtml}`;
+                indStatsContainer.appendChild(block);
+            });
+
+            // Aggregate Multi-Round History
+            if (Array.isArray(localState.history)) {
+                localState.history.forEach(pastRound => {
+                    if (pastRound && pastRound.playerTotals) {
+                        Object.keys(pastRound.playerTotals).forEach(pName => {
+                            playerAllRoundTotals[pName] = (playerAllRoundTotals[pName] || 0) + pastRound.playerTotals[pName];
+                        });
+                    }
+                });
+            }
+
+            // All-Time MVP Container Rendering
+            const allMvpContainer = document.getElementById('all-round-mvp-container');
+            allMvpContainer.innerHTML = '';
+
+            const sortedAllTimePlayers = Object.keys(playerAllRoundTotals)
+                .map(p => ({ name: p, totalShots: playerAllRoundTotals[p] }))
+                .sort((a, b) => b.totalShots - a.totalShots);
+
+            if (sortedAllTimePlayers.length === 0) {
+                allMvpContainer.innerHTML = `<div class="text-xs text-slate-400 italic">No player shots logged yet.</div>`;
+                return;
+            }
+
+            const maxAllTimeShots = Math.max(1, ...sortedAllTimePlayers.map(p => p.totalShots));
+
+            sortedAllTimePlayers.forEach((p, idx) => {
+                const row = document.createElement('div');
+                row.className = "space-y-1 bg-navy-950/80 p-2.5 rounded-lg border border-navy-800";
+                row.innerHTML = `
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="text-white font-bold flex items-center gap-1.5">
+                            <span class="text-[10px] bg-navy-800 text-salmon-300 px-1.5 py-0.5 rounded font-mono">${idx + 1}</span>
+                            ${p.name}
+                        </span>
+                        <span class="text-salmon-400 font-extrabold">${p.totalShots} Total Shots</span>
+                    </div>
+                    <div class="w-full h-2 bg-navy-900 rounded-full overflow-hidden mt-1">
+                        <div class="h-full salmon-gradient-bg rounded-full" style="width: ${Math.min(100, (p.totalShots / maxAllTimeShots) * 100)}%"></div>
+                    </div>
+                `;
+                allMvpContainer.appendChild(row);
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            updateNavLinks();
+            document.getElementById('display-room-code').textContent = roomCode;
+            renderLeaderboard();
+            connectToRoom();
+            lucide.createIcons();
+
+            document.getElementById('btn-copy-share-link').onclick = () => {
+                navigator.clipboard.writeText(window.location.href);
+                alert("Room link copied to clipboard!");
+            };
+        });
+    </script>
+</body>
+</html>
