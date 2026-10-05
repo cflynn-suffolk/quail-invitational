@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Setup - Quail Invitational 2026</title>
+    <title>Setup - Flynn Invitational 2026</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -19,8 +19,8 @@
             theme: {
                 extend: {
                     colors: {
-                        navy: { 800: '#1e293b', 850: '#141e33', 900: '#0f172a', 950: '#080d1a' },
-                        salmon: { 300: '#fca5a5', 400: '#ff8a7a', 500: '#ff7f6e', 600: '#e05343', 700: '#c23829' }
+                        emerald: { 850: '#063826', 900: '#032519', 950: '#01170f' },
+                        gold: { 300: '#fde047', 400: '#facc15', 500: '#eab308', 600: '#ca8a04', 700: '#a16207' }
                     },
                     fontFamily: { serif: ['Cinzel', 'serif'], sans: ['Inter', 'sans-serif'] }
                 }
@@ -29,31 +29,31 @@
     </script>
     
     <style>
-        body { background-color: #080d1a; color: #f3f4f6; font-family: 'Inter', sans-serif; }
-        .salmon-gradient-text { background: linear-gradient(135deg, #fca5a5 0%, #ff7f6e 50%, #e05343 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        body { background-color: #01170f; color: #f3f4f6; font-family: 'Inter', sans-serif; }
+        .gold-gradient-text { background: linear-gradient(135deg, #fef08a 0%, #eab308 50%, #ca8a04 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between">
 
-    <div class="max-w-md mx-auto w-full min-h-screen flex flex-col bg-navy-950 shadow-2xl relative border-x border-navy-850">
+    <div class="max-w-md mx-auto w-full min-h-screen flex flex-col bg-emerald-950 shadow-2xl relative border-x border-emerald-900/50">
         
         <!-- Header & Top Navigation Bar -->
-        <header class="bg-gradient-to-b from-navy-900 to-navy-950 p-4 border-b border-salmon-500/30 text-center relative overflow-hidden sticky top-0 z-30 shadow-lg">
+        <header class="bg-gradient-to-b from-emerald-900 to-emerald-950 p-4 border-b border-gold-500/30 text-center relative overflow-hidden sticky top-0 z-30 shadow-lg">
             <div class="relative z-10 flex flex-col items-center">
-                <h1 class="font-serif text-2xl font-extrabold tracking-wider salmon-gradient-text">QUAIL INVITATIONAL</h1>
-                <span id="room-code-badge" class="text-[10px] bg-salmon-500/20 text-salmon-400 px-2 py-0.5 rounded border border-salmon-500/40 font-mono font-bold mt-1">TOURNAMENT SETUP</span>
+                <h1 class="font-serif text-2xl font-extrabold tracking-wider gold-gradient-text">FLYNN INVITATIONAL</h1>
+                <span id="room-code-badge" class="text-[10px] bg-gold-500/20 text-gold-400 px-2 py-0.5 rounded border border-gold-500/40 font-mono font-bold mt-1">TOURNAMENT SETUP</span>
             </div>
 
-            <nav class="flex mt-3 bg-navy-900/80 p-1 rounded-xl border border-salmon-500/20 text-xs font-medium">
-                <a id="nav-leaderboard" href="index.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 text-slate-200 hover:text-white">
+            <nav class="flex mt-3 bg-emerald-900/80 p-1 rounded-xl border border-gold-500/20 text-xs font-medium">
+                <a id="nav-leaderboard" href="index.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 text-emerald-200 hover:text-white">
                     <i data-lucide="trophy" class="w-3.5 h-3.5"></i>
                     <span>Leaderboard</span>
                 </a>
-                <a id="nav-scorecard" href="scorecard.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 text-slate-200 hover:text-white">
+                <a id="nav-scorecard" href="scorecard.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 text-emerald-200 hover:text-white">
                     <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
                     <span>Scorecard</span>
                 </a>
-                <a id="nav-setup" href="setup.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 bg-salmon-500 text-navy-950 font-bold shadow-md">
+                <a id="nav-setup" href="setup.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 bg-gold-500 text-emerald-950 font-bold shadow-md">
                     <i data-lucide="settings" class="w-3.5 h-3.5"></i>
                     <span>Setup</span>
                 </a>
@@ -64,58 +64,61 @@
         <main class="flex-1 p-4 pb-20 space-y-4">
             
             <!-- Password Gate Section -->
-            <div id="password-gate" class="bg-navy-900/80 p-5 rounded-xl border border-salmon-500/30 text-center space-y-3">
-                <i data-lucide="lock" class="w-8 h-8 text-salmon-400 mx-auto"></i>
+            <div id="password-gate" class="bg-emerald-900/80 p-5 rounded-xl border border-gold-500/30 text-center space-y-3">
+                <i data-lucide="lock" class="w-8 h-8 text-gold-400 mx-auto"></i>
                 <h2 class="font-serif font-bold text-lg text-white">Admin Authentication</h2>
-                <p class="text-xs text-slate-300">Enter commissioner password to access setup & course settings.</p>
-                <input type="password" id="input-password" class="w-full bg-navy-950 border border-navy-700 text-white p-2.5 rounded-lg text-center text-sm font-mono outline-none focus:border-salmon-500" placeholder="Password">
-                <button id="btn-unlock" class="w-full py-2.5 bg-salmon-500 text-navy-950 font-bold text-xs rounded-lg active:scale-95 transition-transform">Unlock Setup</button>
+                <p class="text-xs text-emerald-300">Enter commissioner password to access setup & course settings.</p>
+                <input type="password" id="input-password" class="w-full bg-emerald-950 border border-emerald-700 text-white p-2.5 rounded-lg text-center text-sm font-mono outline-none focus:border-gold-500" placeholder="Password">
+                <button id="btn-unlock" class="w-full py-2.5 bg-gold-500 text-emerald-950 font-bold text-xs rounded-lg active:scale-95 transition-transform">Unlock Setup</button>
             </div>
 
             <!-- Admin Content -->
             <div id="admin-content" class="hidden space-y-4">
                 
-                <div class="bg-navy-900/40 p-4 rounded-xl border border-navy-800 space-y-3">
-                    <h2 class="font-serif font-bold text-base text-salmon-400 flex items-center gap-2">
+                <div class="bg-emerald-900/40 p-4 rounded-xl border border-emerald-800 space-y-3">
+                    <h2 class="font-serif font-bold text-base text-gold-400 flex items-center gap-2">
                         <i data-lucide="wifi" class="w-4 h-4"></i> Match Room Code
                     </h2>
                     <div class="flex gap-2">
-                        <input type="text" id="input-room-code" class="flex-1 bg-navy-950 border border-navy-700 text-white p-2.5 rounded-lg text-xs font-mono uppercase font-bold tracking-wider outline-none focus:border-salmon-500" placeholder="e.g. QUAIL26">
-                        <button id="btn-apply-room-code" class="px-4 bg-salmon-500 text-navy-950 font-bold text-xs rounded-lg">Switch Room</button>
+                        <input type="text" id="input-room-code" class="flex-1 bg-emerald-950 border border-emerald-700 text-white p-2.5 rounded-lg text-xs font-mono uppercase font-bold tracking-wider outline-none focus:border-gold-500" placeholder="e.g. FLYNN26">
+                        <button id="btn-apply-room-code" class="px-4 bg-gold-500 text-emerald-950 font-bold text-xs rounded-lg">Switch Room</button>
                     </div>
                 </div>
 
                 <!-- Course & Round Setup -->
-                <div class="bg-navy-900/40 p-4 rounded-xl border border-navy-800 space-y-3">
-                    <h2 class="font-serif font-bold text-base text-salmon-400 flex items-center gap-2">
+                <div class="bg-emerald-900/40 p-4 rounded-xl border border-emerald-800 space-y-3">
+                    <h2 class="font-serif font-bold text-base text-gold-400 flex items-center gap-2">
                         <i data-lucide="map-pin" class="w-4 h-4"></i> Round & Course Setup
                     </h2>
                     
                     <div>
-                        <label class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Select Golf Course</label>
-                        <select id="select-course" class="w-full bg-navy-950 border border-navy-700 text-white font-medium text-xs rounded-lg p-2.5 outline-none focus:border-salmon-500">
-                            <option value="quailhollow">Quail Hollow Golf & Country Club (Oakham, MA)</option>
+                        <label class="text-[10px] uppercase font-bold text-emerald-400 block mb-1">Select Golf Course</label>
+                        <select id="select-course" class="w-full bg-emerald-950 border border-emerald-700 text-white font-medium text-xs rounded-lg p-2.5 outline-none focus:border-gold-500">
+                            <option value="kinderhook">Olde Kinderhook Golf Club (Valatie, NY)</option>
+                            <option value="hartford">Hartford Greens Country Club (Fort Ann, NY)</option>
+                            <option value="topoftheworld">Top of the World Golf Resort (Lake George, NY)</option>
+                            <option value="saratogalake">Saratoga Lake Golf Club (Saratoga Springs, NY)</option>
                             <option value="custom">-- Custom / Random Course --</option>
                         </select>
                     </div>
 
                     <div id="custom-course-container" class="hidden">
-                        <label class="text-[10px] uppercase font-bold text-salmon-400 block mb-1">Custom Course Name</label>
-                        <input type="text" id="input-custom-course-name" class="w-full bg-navy-950 border border-salmon-500/50 text-white p-2 text-xs rounded-lg outline-none focus:border-salmon-400" placeholder="e.g., Quail Scramble Special">
+                        <label class="text-[10px] uppercase font-bold text-gold-400 block mb-1">Custom Course Name</label>
+                        <input type="text" id="input-custom-course-name" class="w-full bg-emerald-950 border border-gold-500/50 text-white p-2 text-xs rounded-lg outline-none focus:border-gold-400" placeholder="e.g., Pebble Beach Scramble">
                     </div>
 
                     <div class="grid grid-cols-2 gap-2">
                         <div>
-                            <label class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Hole Count</label>
-                            <select id="select-hole-count" class="w-full bg-navy-950 border border-navy-700 text-white font-medium text-xs rounded-lg p-2.5 outline-none focus:border-salmon-500">
+                            <label class="text-[10px] uppercase font-bold text-emerald-400 block mb-1">Hole Count</label>
+                            <select id="select-hole-count" class="w-full bg-emerald-950 border border-emerald-700 text-white font-medium text-xs rounded-lg p-2.5 outline-none focus:border-gold-500">
                                 <option value="18">18 Holes</option>
                                 <option value="9">9 Holes</option>
                                 <option value="6">6 Holes</option>
                             </select>
                         </div>
                         <div id="nine-selection-container">
-                            <label class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Nine Selection</label>
-                            <select id="select-nine" class="w-full bg-navy-950 border border-navy-700 text-white font-medium text-xs rounded-lg p-2.5 outline-none focus:border-salmon-500">
+                            <label class="text-[10px] uppercase font-bold text-emerald-400 block mb-1">Nine Selection</label>
+                            <select id="select-nine" class="w-full bg-emerald-950 border border-emerald-700 text-white font-medium text-xs rounded-lg p-2.5 outline-none focus:border-gold-500">
                                 <option value="front">Front 9 (Holes 1-9)</option>
                                 <option value="back">Back 9 (Holes 10-18)</option>
                             </select>
@@ -124,59 +127,59 @@
                 </div>
 
                 <!-- Scoring Settings -->
-                <div class="bg-navy-900/40 p-4 rounded-xl border border-navy-800 space-y-3">
-                    <h2 class="font-serif font-bold text-base text-salmon-400 flex items-center gap-2">
+                <div class="bg-emerald-900/40 p-4 rounded-xl border border-emerald-800 space-y-3">
+                    <h2 class="font-serif font-bold text-base text-gold-400 flex items-center gap-2">
                         <i data-lucide="sliders" class="w-4 h-4"></i> Scoring Configuration
                     </h2>
                     
-                    <div class="flex items-center justify-between bg-navy-950 p-3 rounded-xl border border-navy-800">
+                    <div class="flex items-center justify-between bg-emerald-950 p-3 rounded-xl border border-emerald-800">
                         <div>
                             <div class="text-xs font-bold text-white">Track Group / Team Score</div>
-                            <div class="text-[10px] text-slate-400">If OFF, hides team +/- buttons and sums personal shots</div>
+                            <div class="text-[10px] text-emerald-400">If OFF, hides team +/- buttons and sums personal shots</div>
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" id="toggle-track-group" class="sr-only peer" checked>
-                            <div class="w-11 h-6 bg-navy-900 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-salmon-500"></div>
+                            <div class="w-11 h-6 bg-emerald-900 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gold-500"></div>
                         </label>
                     </div>
 
-                    <div class="flex items-center justify-between bg-navy-950 p-3 rounded-xl border border-navy-800">
+                    <div class="flex items-center justify-between bg-emerald-950 p-3 rounded-xl border border-emerald-800">
                         <div>
                             <div class="text-xs font-bold text-white">Track Personal Shots</div>
-                            <div class="text-[10px] text-slate-400">If OFF, hides personal shot entry on scorecard</div>
+                            <div class="text-[10px] text-emerald-400">If OFF, hides personal shot entry on scorecard</div>
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" id="toggle-track-personal" class="sr-only peer" checked>
-                            <div class="w-11 h-6 bg-navy-900 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-salmon-500"></div>
+                            <div class="w-11 h-6 bg-emerald-900 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gold-500"></div>
                         </label>
                     </div>
                 </div>
 
                 <!-- Teams & Rosters -->
-                <div class="bg-navy-900/40 p-4 rounded-xl border border-navy-800 space-y-4">
+                <div class="bg-emerald-900/40 p-4 rounded-xl border border-emerald-800 space-y-4">
                     <div class="flex justify-between items-center">
-                        <h2 class="font-serif font-bold text-base text-salmon-400 flex items-center gap-2">
+                        <h2 class="font-serif font-bold text-base text-gold-400 flex items-center gap-2">
                             <i data-lucide="users" class="w-4 h-4"></i> Manage Teams & Rosters
                         </h2>
-                        <button id="btn-add-team" class="text-xs bg-navy-800 text-salmon-300 border border-navy-700 px-2.5 py-1 rounded-lg font-bold flex items-center gap-1">
+                        <button id="btn-add-team" class="text-xs bg-emerald-800 text-gold-300 border border-emerald-700 px-2.5 py-1 rounded-lg font-bold flex items-center gap-1">
                             <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add Team
                         </button>
                     </div>
 
                     <div id="teams-editor-container" class="space-y-4"></div>
 
-                    <button id="btn-save-settings" class="w-full py-3 bg-salmon-500 text-navy-950 font-bold text-xs rounded-xl shadow-lg active:scale-95 transition-transform">
+                    <button id="btn-save-settings" class="w-full py-3 bg-gold-500 text-emerald-950 font-bold text-xs rounded-xl shadow-lg active:scale-95 transition-transform">
                         Save Setup & Apply Round
                     </button>
                 </div>
 
                 <!-- Clear Options -->
-                <div class="bg-navy-900/40 p-4 rounded-xl border border-navy-800 space-y-3">
-                    <h2 class="font-serif font-bold text-base text-salmon-400 flex items-center gap-2">
+                <div class="bg-emerald-900/40 p-4 rounded-xl border border-emerald-800 space-y-3">
+                    <h2 class="font-serif font-bold text-base text-gold-400 flex items-center gap-2">
                         <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reset & Clear Options
                     </h2>
                     <div class="grid grid-cols-2 gap-2">
-                        <button id="btn-clear-course-scores" class="py-2.5 bg-amber-900/40 text-salmon-300 border border-amber-700/60 font-semibold text-xs rounded-lg">Clear Active Round Scores</button>
+                        <button id="btn-clear-course-scores" class="py-2.5 bg-yellow-900/40 text-gold-300 border border-yellow-700/60 font-semibold text-xs rounded-lg">Clear Active Round Scores</button>
                         <button id="btn-clear-all-history" class="py-2.5 bg-red-950/60 text-red-300 border border-red-800/80 font-semibold text-xs rounded-lg">Clear All Round History</button>
                     </div>
                 </div>
@@ -188,27 +191,63 @@
 
     <script>
         const COURSE_DATABASE = {
-            quailhollow: {
-                name: "Quail Hollow Golf & Country Club",
-                location: "Oakham, MA",
+            kinderhook: {
+                name: "Olde Kinderhook Golf Club",
+                location: "Valatie, NY",
                 holes: [
-                    { hole: 1, par: 4, yards: 335 }, { hole: 2, par: 4, yards: 360 }, { hole: 3, par: 3, yards: 155 },
-                    { hole: 4, par: 5, yards: 485 }, { hole: 5, par: 4, yards: 340 }, { hole: 6, par: 3, yards: 165 },
-                    { hole: 7, par: 4, yards: 375 }, { hole: 8, par: 5, yards: 495 }, { hole: 9, par: 4, yards: 330 },
-                    { hole: 10, par: 4, yards: 350 }, { hole: 11, par: 3, yards: 145 }, { hole: 12, par: 5, yards: 505 },
-                    { hole: 13, par: 4, yards: 360 }, { hole: 14, par: 4, yards: 380 }, { hole: 15, par: 3, yards: 160 },
-                    { hole: 16, par: 4, yards: 370 }, { hole: 17, par: 5, yards: 490 }, { hole: 18, par: 4, yards: 400 }
+                    { hole: 1, par: 4, yards: 375 }, { hole: 2, par: 5, yards: 495 }, { hole: 3, par: 3, yards: 160 },
+                    { hole: 4, par: 4, yards: 385 }, { hole: 5, par: 4, yards: 360 }, { hole: 6, par: 3, yards: 175 },
+                    { hole: 7, par: 4, yards: 405 }, { hole: 8, par: 5, yards: 510 }, { hole: 9, par: 4, yards: 350 },
+                    { hole: 10, par: 4, yards: 390 }, { hole: 11, par: 3, yards: 155 }, { hole: 12, par: 5, yards: 520 },
+                    { hole: 13, par: 4, yards: 370 }, { hole: 14, par: 4, yards: 415 }, { hole: 15, par: 3, yards: 165 },
+                    { hole: 16, par: 4, yards: 380 }, { hole: 17, par: 5, yards: 505 }, { hole: 18, par: 4, yards: 425 }
+                ]
+            },
+            hartford: {
+                name: "Hartford Greens Country Club",
+                location: "Fort Ann, NY",
+                holes: [
+                    { hole: 1, par: 4, yards: 365 }, { hole: 2, par: 5, yards: 485 }, { hole: 3, par: 3, yards: 150 },
+                    { hole: 4, par: 4, yards: 375 }, { hole: 5, par: 4, yards: 350 }, { hole: 6, par: 3, yards: 160 },
+                    { hole: 7, par: 4, yards: 390 }, { hole: 8, par: 5, yards: 500 }, { hole: 9, par: 4, yards: 340 },
+                    { hole: 10, par: 4, yards: 380 }, { hole: 11, par: 3, yards: 145 }, { hole: 12, par: 5, yards: 510 },
+                    { hole: 13, par: 4, yards: 360 }, { hole: 14, par: 4, yards: 400 }, { hole: 15, par: 3, yards: 155 },
+                    { hole: 16, par: 4, yards: 370 }, { hole: 17, par: 5, yards: 495 }, { hole: 18, par: 4, yards: 410 }
+                ]
+            },
+            topoftheworld: {
+                name: "Top of the World Golf Resort",
+                location: "Lake George, NY",
+                holes: [
+                    { hole: 1, par: 4, yards: 350 }, { hole: 2, par: 4, yards: 360 }, { hole: 3, par: 3, yards: 145 },
+                    { hole: 4, par: 5, yards: 480 }, { hole: 5, par: 4, yards: 340 }, { hole: 6, par: 3, yards: 155 },
+                    { hole: 7, par: 4, yards: 375 }, { hole: 8, par: 5, yards: 490 }, { hole: 9, par: 4, yards: 330 },
+                    { hole: 10, par: 4, yards: 365 }, { hole: 11, par: 3, yards: 140 }, { hole: 12, par: 5, yards: 500 },
+                    { hole: 13, par: 4, yards: 350 }, { hole: 14, par: 4, yards: 385 }, { hole: 15, par: 3, yards: 160 },
+                    { hole: 16, par: 4, yards: 360 }, { hole: 17, par: 5, yards: 485 }, { hole: 18, par: 4, yards: 395 }
+                ]
+            },
+            saratogalake: {
+                name: "Saratoga Lake Golf Club",
+                location: "Saratoga Springs, NY",
+                holes: [
+                    { hole: 1, par: 4, yards: 370 }, { hole: 2, par: 5, yards: 490 }, { hole: 3, par: 3, yards: 155 },
+                    { hole: 4, par: 4, yards: 380 }, { hole: 5, par: 4, yards: 355 }, { hole: 6, par: 3, yards: 170 },
+                    { hole: 7, par: 4, yards: 400 }, { hole: 8, par: 5, yards: 505 }, { hole: 9, par: 4, yards: 345 },
+                    { hole: 10, par: 4, yards: 385 }, { hole: 11, par: 3, yards: 150 }, { hole: 12, par: 5, yards: 515 },
+                    { hole: 13, par: 4, yards: 365 }, { hole: 14, par: 4, yards: 405 }, { hole: 15, par: 3, yards: 160 },
+                    { hole: 16, par: 4, yards: 375 }, { hole: 17, par: 5, yards: 500 }, { hole: 18, par: 4, yards: 420 }
                 ]
             }
         };
 
-        const STORAGE_KEY = 'QUAIL_INVITATIONAL_2026_STATE';
+        const STORAGE_KEY = 'FLYNN_INVITATIONAL_2026_STATE';
         const firebaseConfig = {
             apiKey: "AIzaSyAgrl9R0YF5XHyjzsoN5iJQQwiMpyl49Ug",
-            authDomain: "quail-invitational.firebaseapp.com",
-            databaseURL: "https://quail-invitational-default-rtdb.firebaseio.com",
-            projectId: "quail-invitational",
-            storageBucket: "quail-invitational.firebasestorage.app",
+            authDomain: "flynn-invitational.firebaseapp.com",
+            databaseURL: "https://flynn-invitational-default-rtdb.firebaseio.com",
+            projectId: "flynn-invitational",
+            storageBucket: "flynn-invitational.firebasestorage.app",
             messagingSenderId: "394140283598",
             appId: "1:394140283598:web:3268b04be314aeb608d69f"
         };
@@ -218,7 +257,7 @@
 
         function getRoomCodeFromURL() {
             const params = new URLSearchParams(window.location.search);
-            return (params.get('room') || 'QUAIL26').toUpperCase();
+            return (params.get('room') || 'FLYNN26').toUpperCase();
         }
 
         let roomCode = getRoomCodeFromURL();
@@ -237,15 +276,15 @@
             } catch (e) {}
             return {
                 roomCode: roomCode,
-                selectedCourseKey: "quailhollow",
+                selectedCourseKey: "kinderhook",
                 customCourseName: "",
                 holeCount: "18",
                 nineSelection: "front",
                 trackGroupScore: true,
                 trackPersonalShots: true,
                 teams: [
-                    { name: "Quail Scramblers", players: ["Connor", "Jack", "Coffey"], holes: [] },
-                    { name: "Oakham Eagles", players: ["David", "Ski", "Mike"], holes: [] }
+                    { name: "Adirondack Aviators", players: ["Connor", "Jack", "Coffey"], holes: [] },
+                    { name: "Lake George Legends", players: ["David", "Ski", "Mike"], holes: [] }
                 ],
                 history: []
             };
@@ -273,7 +312,7 @@
             if (localState.selectedCourseKey === 'custom') {
                 fullCourse = generateCustomCourseHoles(18);
             } else {
-                fullCourse = (COURSE_DATABASE[localState.selectedCourseKey] || COURSE_DATABASE.quailhollow).holes;
+                fullCourse = COURSE_DATABASE[localState.selectedCourseKey || 'kinderhook'].holes;
             }
             const count = parseInt(localState.holeCount || "18", 10);
             if (count === 18) return fullCourse;
@@ -290,24 +329,24 @@
 
             localState.teams.forEach((team, tIdx) => {
                 const card = document.createElement('div');
-                card.className = "bg-navy-950 p-3.5 rounded-xl border border-navy-800 space-y-3";
+                card.className = "bg-emerald-950 p-3.5 rounded-xl border border-emerald-800 space-y-3";
                 
                 let playersHtml = (team.players || []).map((p, pIdx) => `
                     <div class="flex items-center gap-2">
-                        <input type="text" value="${p}" data-tidx="${tIdx}" data-pidx="${pIdx}" class="player-name-input flex-1 bg-navy-900 border border-navy-700 text-white p-2 rounded text-xs outline-none focus:border-salmon-500" placeholder="Player Name">
+                        <input type="text" value="${p}" data-tidx="${tIdx}" data-pidx="${pIdx}" class="player-name-input flex-1 bg-emerald-900 border border-emerald-700 text-white p-2 rounded text-xs outline-none focus:border-gold-500" placeholder="Player Name">
                         <button onclick="removePlayer(${tIdx}, ${pIdx})" class="p-2 text-red-400 bg-red-950/40 rounded border border-red-900/50"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
                     </div>
                 `).join('');
 
                 card.innerHTML = `
-                    <div class="flex items-center justify-between gap-2 border-b border-navy-800 pb-2">
-                        <input type="text" value="${team.name}" data-tidx="${tIdx}" class="team-name-input font-serif font-bold text-salmon-400 bg-transparent border-b border-dashed border-navy-700 focus:border-salmon-500 outline-none text-sm w-2/3" placeholder="Team Name">
+                    <div class="flex items-center justify-between gap-2 border-b border-emerald-800/80 pb-2">
+                        <input type="text" value="${team.name}" data-tidx="${tIdx}" class="team-name-input font-serif font-bold text-gold-400 bg-transparent border-b border-dashed border-emerald-700 focus:border-gold-500 outline-none text-sm w-2/3" placeholder="Team Name">
                         <button onclick="removeTeam(${tIdx})" class="text-[10px] text-red-400 bg-red-950/40 px-2 py-1 rounded border border-red-900/50">Delete Team</button>
                     </div>
                     <div class="space-y-2">
-                        <div class="text-[10px] text-slate-400 uppercase font-bold">Roster Players</div>
+                        <div class="text-[10px] text-emerald-400 uppercase font-bold">Roster Players</div>
                         ${playersHtml}
-                        <button onclick="addPlayer(${tIdx})" class="text-[11px] text-salmon-400 font-semibold flex items-center gap-1 mt-1">
+                        <button onclick="addPlayer(${tIdx})" class="text-[11px] text-gold-400 font-semibold flex items-center gap-1 mt-1">
                             <i data-lucide="user-plus" class="w-3 h-3"></i> Add Player
                         </button>
                     </div>
@@ -336,7 +375,7 @@
         };
 
         function populateForm() {
-            document.getElementById('select-course').value = localState.selectedCourseKey || 'quailhollow';
+            document.getElementById('select-course').value = localState.selectedCourseKey || 'kinderhook';
             document.getElementById('input-custom-course-name').value = localState.customCourseName || '';
             document.getElementById('select-hole-count').value = localState.holeCount || '18';
             document.getElementById('select-nine').value = localState.nineSelection || 'front';
@@ -384,48 +423,33 @@
                 renderTeamsEditor();
             };
 
-            document.getElementById('btn-apply-room-code').onclick = () => {
-                const newCode = document.getElementById('input-room-code').value.trim().toUpperCase();
-                if (newCode) {
-                    window.location.href = `setup.html?room=${newCode}`;
-                }
-            };
-
-            document.getElementById('btn-clear-course-scores').onclick = () => {
-                if (confirm("Clear scores for the current active round?")) {
-                    const activeHoles = getActiveCourseHoles();
-                    localState.teams.forEach(t => {
-                        t.holes = activeHoles.map(() => ({ score: 0, playerShots: Array((t.players || []).length).fill(0), completed: false }));
-                    });
-                    saveState();
-                    alert("Active round scores reset!");
-                }
-            };
-
-            document.getElementById('btn-clear-all-history').onclick = () => {
-                if (confirm("Reset ALL cumulative player history across all rounds?")) {
-                    localState.history = [];
-                    saveState();
-                    alert("Cumulative history cleared!");
-                }
-            };
-
             document.getElementById('btn-save-settings').onclick = () => {
-                // Collect roster inputs
-                document.querySelectorAll('.team-name-input').forEach(input => {
-                    const tIdx = parseInt(input.dataset.tidx, 10);
-                    if (localState.teams[tIdx]) localState.teams[tIdx].name = input.value.trim() || `Team ${tIdx + 1}`;
+                // Archive current active round scores into history before resetting for the new round
+                if (!Array.isArray(localState.history)) localState.history = [];
+
+                const roundPlayerTotals = {};
+                let hasActiveData = false;
+
+                (localState.teams || []).forEach(t => {
+                    (t.players || []).forEach((p, pIdx) => {
+                        const count = (t.holes || []).reduce((sum, h) => sum + ((h && h.playerShots && h.playerShots[pIdx]) || 0), 0);
+                        if (count > 0 && p) {
+                            roundPlayerTotals[p] = (roundPlayerTotals[p] || 0) + count;
+                            hasActiveData = true;
+                        }
+                    });
                 });
 
-                document.querySelectorAll('.player-name-input').forEach(input => {
-                    const tIdx = parseInt(input.dataset.tidx, 10);
-                    const pIdx = parseInt(input.dataset.pidx, 10);
-                    if (localState.teams[tIdx] && localState.teams[tIdx].players) {
-                        localState.teams[tIdx].players[pIdx] = input.value.trim();
-                    }
-                });
+                if (hasActiveData) {
+                    const cName = localState.selectedCourseKey === 'custom' ? (localState.customCourseName || "Custom Course") : (COURSE_DATABASE[localState.selectedCourseKey]?.name || "Golf Course");
+                    localState.history.push({
+                        timestamp: new Date().toISOString(),
+                        courseName: cName,
+                        playerTotals: roundPlayerTotals
+                    });
+                }
 
-                // Save configuration options
+                // Apply new configuration
                 localState.selectedCourseKey = document.getElementById('select-course').value;
                 localState.customCourseName = document.getElementById('input-custom-course-name').value.trim();
                 localState.holeCount = document.getElementById('select-hole-count').value;
@@ -433,15 +457,66 @@
                 localState.trackGroupScore = document.getElementById('toggle-track-group').checked;
                 localState.trackPersonalShots = document.getElementById('toggle-track-personal').checked;
 
-                // Reset team holes for active round structure
+                document.querySelectorAll('.team-name-input').forEach(input => {
+                    const tIdx = parseInt(input.dataset.tidx, 10);
+                    localState.teams[tIdx].name = input.value.trim() || `Team ${tIdx + 1}`;
+                });
+
+                document.querySelectorAll('.player-name-input').forEach(input => {
+                    const tIdx = parseInt(input.dataset.tidx, 10);
+                    const pIdx = parseInt(input.dataset.pidx, 10);
+                    localState.teams[tIdx].players[pIdx] = input.value.trim() || `Player ${pIdx + 1}`;
+                });
+
                 const activeHoles = getActiveCourseHoles();
                 localState.teams.forEach(t => {
-                    t.holes = activeHoles.map(() => ({ score: 0, playerShots: Array((t.players || []).length).fill(0), completed: false }));
+                    t.holes = activeHoles.map(h => ({
+                        score: 0,
+                        playerShots: Array((t.players || []).length).fill(0),
+                        completed: false
+                    }));
                 });
 
                 saveState();
-                alert("Setup saved! Redirecting to scorecard...");
-                window.location.href = `scorecard.html?room=${roomCode}`;
+                alert("Setup saved! Previous round shots were archived to the multi-round leaderboard.");
+            };
+
+            document.getElementById('btn-apply-room-code').onclick = () => {
+                const code = document.getElementById('input-room-code').value.trim().toUpperCase();
+                if (code) {
+                    window.location.href = `setup.html?room=${code}`;
+                }
+            };
+
+            document.getElementById('btn-clear-course-scores').onclick = () => {
+                if (confirm("Clear scores for the active round? Unplayed holes will start at 0.")) {
+                    const activeHoles = getActiveCourseHoles();
+                    localState.teams.forEach(t => {
+                        t.holes = activeHoles.map(h => ({
+                            score: 0,
+                            playerShots: Array((t.players || []).length).fill(0),
+                            completed: false
+                        }));
+                    });
+                    saveState();
+                    alert("Active round scores cleared!");
+                }
+            };
+
+            document.getElementById('btn-clear-all-history').onclick = () => {
+                if (confirm("Clear active round scores AND all accumulated history across all rounds?")) {
+                    const activeHoles = getActiveCourseHoles();
+                    localState.teams.forEach(t => {
+                        t.holes = activeHoles.map(h => ({
+                            score: 0,
+                            playerShots: Array((t.players || []).length).fill(0),
+                            completed: false
+                        }));
+                    });
+                    localState.history = [];
+                    saveState();
+                    alert("All course scores and multi-round history cleared!");
+                }
             };
         });
     </script>
