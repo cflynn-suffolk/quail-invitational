@@ -37,7 +37,6 @@
 
     <div class="max-w-md mx-auto w-full min-h-screen flex flex-col bg-navy-950 shadow-2xl relative border-x border-navy-900/50">
         
-        <!-- Header & Top Navigation Bar -->
         <header class="bg-gradient-to-b from-navy-900 to-navy-950 p-4 border-b border-salmon-500/30 text-center relative overflow-hidden sticky top-0 z-30 shadow-lg">
             <div class="relative z-10 flex flex-col items-center">
                 <img src="quail_logo_transparent.png" alt="Quail Logo" class="w-10 h-10 mb-1 object-contain">
@@ -46,25 +45,23 @@
             </div>
 
             <nav class="flex mt-3 bg-navy-900/80 p-1 rounded-xl border border-salmon-500/20 text-xs font-medium">
-                <a id="nav-leaderboard" href="index.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 text-slate-200 hover:text-white">
+                <a id="nav-leaderboard" href="#" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 text-slate-200 hover:text-white">
                     <i data-lucide="trophy" class="w-3.5 h-3.5"></i>
                     <span>Leaderboard</span>
                 </a>
-                <a id="nav-scorecard" href="scorecard.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 text-slate-200 hover:text-white">
+                <a id="nav-scorecard" href="#" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 text-slate-200 hover:text-white">
                     <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
                     <span>Scorecard</span>
                 </a>
-                <a id="nav-setup" href="setup.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 bg-salmon-500 text-navy-950 font-bold shadow-md">
+                <a id="nav-setup" href="#" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 bg-salmon-500 text-navy-950 font-bold shadow-md">
                     <i data-lucide="settings" class="w-3.5 h-3.5"></i>
                     <span>Setup</span>
                 </a>
             </nav>
         </header>
 
-        <!-- Main Content -->
         <main class="flex-1 p-4 pb-20 space-y-4">
             
-            <!-- Password Gate Section -->
             <div id="password-gate" class="bg-navy-900/80 p-5 rounded-xl border border-salmon-500/30 text-center space-y-3">
                 <i data-lucide="lock" class="w-8 h-8 text-salmon-400 mx-auto"></i>
                 <h2 class="font-serif font-bold text-lg text-white">Admin Authentication</h2>
@@ -73,7 +70,6 @@
                 <button id="btn-unlock" class="w-full py-2.5 bg-salmon-500 text-navy-950 font-bold text-xs rounded-lg active:scale-95 transition-transform">Unlock Setup</button>
             </div>
 
-            <!-- Admin Content -->
             <div id="admin-content" class="hidden space-y-4">
                 
                 <div class="bg-navy-900/40 p-4 rounded-xl border border-navy-800 space-y-3">
@@ -81,12 +77,11 @@
                         <i data-lucide="wifi" class="w-4 h-4"></i> Match Room Code
                     </h2>
                     <div class="flex gap-2">
-                        <input type="text" id="input-room-code" class="flex-1 bg-navy-950 border border-navy-700 text-white p-2.5 rounded-lg text-xs font-mono uppercase font-bold tracking-wider outline-none focus:border-salmon-500" placeholder="e.g. QUAIL26">
+                        <input type="text" id="input-room-code" class="flex-1 bg-navy-950 border border-navy-700 text-white p-2.5 rounded-lg text-xs font-mono uppercase font-bold tracking-wider outline-none focus:border-salmon-500" placeholder="e.g. QUAIL2026">
                         <button id="btn-apply-room-code" class="px-4 bg-salmon-500 text-navy-950 font-bold text-xs rounded-lg">Switch Room</button>
                     </div>
                 </div>
 
-                <!-- Course & Round Setup -->
                 <div class="bg-navy-900/40 p-4 rounded-xl border border-navy-800 space-y-3">
                     <h2 class="font-serif font-bold text-base text-salmon-400 flex items-center gap-2">
                         <i data-lucide="map-pin" class="w-4 h-4"></i> Round & Course Setup
@@ -128,7 +123,6 @@
                     </div>
                 </div>
 
-                <!-- Scoring Settings -->
                 <div class="bg-navy-900/40 p-4 rounded-xl border border-navy-800 space-y-3">
                     <h2 class="font-serif font-bold text-base text-salmon-400 flex items-center gap-2">
                         <i data-lucide="sliders" class="w-4 h-4"></i> Scoring Configuration
@@ -157,7 +151,6 @@
                     </div>
                 </div>
 
-                <!-- Teams & Rosters -->
                 <div class="bg-navy-900/40 p-4 rounded-xl border border-navy-800 space-y-4">
                     <div class="flex justify-between items-center">
                         <h2 class="font-serif font-bold text-base text-salmon-400 flex items-center gap-2">
@@ -175,7 +168,6 @@
                     </button>
                 </div>
 
-                <!-- Clear Options -->
                 <div class="bg-navy-900/40 p-4 rounded-xl border border-navy-800 space-y-3">
                     <h2 class="font-serif font-bold text-base text-salmon-400 flex items-center gap-2">
                         <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reset & Clear Options
@@ -216,20 +208,20 @@
         const STORAGE_KEY = 'QUAIL_INVITATIONAL_2026_STATE';
         const firebaseConfig = {
             apiKey: "AIzaSyAgrl9R0YF5XHyjzsoN5iJQQwiMpyl49Ug",
-            authDomain: "quail-invitational.firebaseapp.com",
-            databaseURL: "https://quail-invitational-default-rtdb.firebaseio.com",
-            projectId: "quail-invitational",
-            storageBucket: "quail-invitational.firebasestorage.app",
+            authDomain: "flynn-invitational.firebaseapp.com",
+            databaseURL: "https://flynn-invitational-default-rtdb.firebaseio.com",
+            projectId: "flynn-invitational",
+            storageBucket: "flynn-invitational.firebasestorage.app",
             messagingSenderId: "394140283598",
             appId: "1:394140283598:web:3268b04be314aeb608d69f"
         };
 
         let db = null, firebaseReady = false;
-        try { if (firebaseConfig.apiKey) { firebase.initializeApp(firebaseConfig); db = firebase.database(); firebaseReady = true; } } catch (e) {}
+        try { firebase.initializeApp(firebaseConfig); db = firebase.database(); firebaseReady = true; } catch (e) {}
 
         function getRoomCodeFromURL() {
             const params = new URLSearchParams(window.location.search);
-            return (params.get('room') || 'QUAIL26').toUpperCase();
+            return (params.get('room') || 'QUAIL2026').toUpperCase();
         }
 
         let roomCode = getRoomCodeFromURL();
@@ -366,7 +358,7 @@
 
             document.getElementById('btn-unlock').onclick = () => {
                 const pass = document.getElementById('input-password').value.trim();
-                if (pass === 'carl') {
+                if (pass === 'carl' || pass === 'QUAIL2026') {
                     document.getElementById('password-gate').classList.add('hidden');
                     document.getElementById('admin-content').classList.remove('hidden');
                     renderTeamsEditor();
@@ -436,7 +428,7 @@
                 });
 
                 saveState();
-                alert("Setup saved! Previous round shots were archived to the multi-round leaderboard.");
+                alert("Setup saved!");
             };
 
             document.getElementById('btn-apply-room-code').onclick = () => {
@@ -447,7 +439,7 @@
             };
 
             document.getElementById('btn-clear-course-scores').onclick = () => {
-                if (confirm("Clear scores for the active round? Unplayed holes will start at 0.")) {
+                if (confirm("Clear scores for the active round?")) {
                     const activeHoles = getActiveCourseHoles();
                     localState.teams.forEach(t => {
                         t.holes = activeHoles.map(h => ({
@@ -462,7 +454,7 @@
             };
 
             document.getElementById('btn-clear-all-history').onclick = () => {
-                if (confirm("Clear active round scores AND all accumulated history across all rounds?")) {
+                if (confirm("Clear active round scores AND all accumulated history?")) {
                     const activeHoles = getActiveCourseHoles();
                     localState.teams.forEach(t => {
                         t.holes = activeHoles.map(h => ({

@@ -38,10 +38,8 @@
 
     <div class="max-w-md mx-auto w-full min-h-screen flex flex-col bg-navy-950 shadow-2xl relative border-x border-navy-900/50">
         
-        <!-- Header & Navigation Bar -->
         <header class="bg-gradient-to-b from-navy-900 to-navy-950 p-4 border-b border-salmon-500/30 text-center relative overflow-hidden sticky top-0 z-30 shadow-lg">
             <div class="relative z-10 flex flex-col items-center">
-                <!-- Quail Logo -->
                 <img src="quail_logo_transparent.png" alt="Quail Logo" class="w-16 h-16 mb-1 object-contain drop-shadow-md">
                 <div class="flex items-center justify-center gap-2 mb-0.5">
                     <i data-lucide="trees" class="w-4 h-4 text-salmon-400"></i>
@@ -57,22 +55,21 @@
             </div>
 
             <nav class="flex mt-3 bg-navy-900/80 p-1 rounded-xl border border-salmon-500/20 text-xs font-medium">
-                <a id="nav-leaderboard" href="index.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 bg-salmon-500 text-navy-950 font-bold shadow-md">
+                <a id="nav-leaderboard" href="#" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 bg-salmon-500 text-navy-950 font-bold shadow-md">
                     <i data-lucide="trophy" class="w-3.5 h-3.5"></i>
                     <span>Leaderboard</span>
                 </a>
-                <a id="nav-scorecard" href="scorecard.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 text-slate-200 hover:text-white">
+                <a id="nav-scorecard" href="#" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 text-slate-200 hover:text-white">
                     <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
                     <span>Scorecard</span>
                 </a>
-                <a id="nav-setup" href="setup.html" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 text-slate-200 hover:text-white">
+                <a id="nav-setup" href="#" class="flex-1 py-2 rounded-lg flex items-center justify-center gap-1 text-slate-200 hover:text-white">
                     <i data-lucide="settings" class="w-3.5 h-3.5"></i>
                     <span>Setup</span>
                 </a>
             </nav>
         </header>
 
-        <!-- Main Content -->
         <main class="flex-1 p-4 pb-20 space-y-5">
             
             <div class="bg-gradient-to-r from-navy-900 via-navy-850 to-navy-900 p-3 rounded-xl border border-salmon-500/30 flex items-center justify-between gap-2 shadow-md">
@@ -82,7 +79,7 @@
                     </div>
                     <div>
                         <div class="text-xs font-bold text-white flex items-center gap-1">
-                            Match Room: <span id="display-room-code" class="font-mono text-salmon-400 font-extrabold uppercase">QUAIL26</span>
+                            Match Room: <span id="display-room-code" class="font-mono text-salmon-400 font-extrabold uppercase">QUAIL2026</span>
                         </div>
                         <div class="text-[10px] text-slate-300/80">Share room link or view live scores</div>
                     </div>
@@ -93,7 +90,6 @@
                 </button>
             </div>
 
-            <!-- Active Course Header & Current Round Leaderboard -->
             <div class="space-y-3">
                 <div class="bg-navy-900/80 p-3 rounded-xl border border-salmon-500/30 text-center">
                     <div class="text-[10px] uppercase font-bold text-slate-300 tracking-widest">Active Golf Course</div>
@@ -110,7 +106,6 @@
                 <div id="leaderboard-cards-container" class="space-y-3"></div>
             </div>
 
-            <!-- Active Course Individual Shot Tracker -->
             <div id="active-round-mvp-box" class="bg-navy-900/40 p-4 rounded-xl border border-navy-800/80 space-y-3">
                 <h3 class="font-serif font-bold text-white text-sm flex items-center gap-2">
                     <i data-lucide="pie-chart" class="w-4 h-4 text-salmon-400"></i> Active Round Shot Contributions
@@ -119,13 +114,11 @@
                 <div id="individual-stats-container" class="space-y-3"></div>
             </div>
 
-            <!-- Section Divider -->
             <div class="relative my-6">
                 <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-salmon-500/40"></div></div>
                 <div class="relative flex justify-center text-xs uppercase"><span class="bg-navy-950 px-3 text-salmon-400 font-serif font-bold tracking-widest">All-Round History</span></div>
             </div>
 
-            <!-- Multi-Round Accumulated MVP Tracker -->
             <div class="bg-navy-900/60 p-4 rounded-xl border-2 border-salmon-500/40 space-y-3 shadow-xl">
                 <h3 class="font-serif font-bold text-salmon-400 text-base flex items-center gap-2">
                     <i data-lucide="award" class="w-5 h-5 text-salmon-400"></i> Running Shot Contributions Across All Rounds
@@ -162,20 +155,20 @@
         const STORAGE_KEY = 'QUAIL_INVITATIONAL_2026_STATE';
         const firebaseConfig = {
             apiKey: "AIzaSyAgrl9R0YF5XHyjzsoN5iJQQwiMpyl49Ug",
-            authDomain: "quail-invitational.firebaseapp.com",
-            databaseURL: "https://quail-invitational-default-rtdb.firebaseio.com",
-            projectId: "quail-invitational",
-            storageBucket: "quail-invitational.firebasestorage.app",
+            authDomain: "flynn-invitational.firebaseapp.com",
+            databaseURL: "https://flynn-invitational-default-rtdb.firebaseio.com",
+            projectId: "flynn-invitational",
+            storageBucket: "flynn-invitational.firebasestorage.app",
             messagingSenderId: "394140283598",
             appId: "1:394140283598:web:3268b04be314aeb608d69f"
         };
 
         let db = null, dbRef = null, firebaseReady = false;
-        try { if (firebaseConfig.apiKey) { firebase.initializeApp(firebaseConfig); db = firebase.database(); firebaseReady = true; } } catch (e) {}
+        try { firebase.initializeApp(firebaseConfig); db = firebase.database(); firebaseReady = true; } catch (e) {}
 
         function getRoomCodeFromURL() {
             const params = new URLSearchParams(window.location.search);
-            return (params.get('room') || 'QUAIL26').toUpperCase();
+            return (params.get('room') || 'QUAIL2026').toUpperCase();
         }
 
         const roomCode = getRoomCodeFromURL();
@@ -303,7 +296,6 @@
                 container.appendChild(card);
             });
 
-            // Active Round MVP Stats
             const indStatsContainer = document.getElementById('individual-stats-container');
             indStatsContainer.innerHTML = '';
             
@@ -336,7 +328,6 @@
                 indStatsContainer.appendChild(block);
             });
 
-            // Aggregate Multi-Round History
             if (Array.isArray(localState.history)) {
                 localState.history.forEach(pastRound => {
                     if (pastRound && pastRound.playerTotals) {
@@ -347,7 +338,6 @@
                 });
             }
 
-            // All-Time MVP Container Rendering
             const allMvpContainer = document.getElementById('all-round-mvp-container');
             allMvpContainer.innerHTML = '';
 
