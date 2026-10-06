@@ -40,6 +40,7 @@
         <!-- Header & Top Navigation Bar -->
         <header class="bg-gradient-to-b from-navy-900 to-navy-950 p-4 border-b border-salmon-500/30 text-center relative overflow-hidden sticky top-0 z-30 shadow-lg">
             <div class="relative z-10 flex flex-col items-center">
+                <img src="quail_logo_transparent.png" alt="Quail Logo" class="w-10 h-10 mb-1 object-contain">
                 <h1 class="font-serif text-2xl font-extrabold tracking-wider salmon-gradient-text">QUAIL INVITATIONAL</h1>
                 <span id="room-code-badge" class="text-[10px] bg-salmon-500/20 text-salmon-400 px-2 py-0.5 rounded border border-salmon-500/40 font-mono font-bold mt-1">TOURNAMENT SETUP</span>
             </div>
@@ -99,10 +100,11 @@
                     </div>
 
                     <div>
-                        <label class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Select Tee Box</label>
+                        <label class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Select Active Tee Box</label>
                         <select id="select-tee" class="w-full bg-navy-950 border border-navy-700 text-white font-medium text-xs rounded-lg p-2.5 outline-none focus:border-salmon-500">
                             <option value="blue">Blue Tees</option>
                             <option value="white" selected>White Tees</option>
+                            <option value="gold">Gold Tees</option>
                             <option value="red">Red Tees</option>
                         </select>
                     </div>
@@ -195,17 +197,18 @@
                 name: "Quail Hollow Country Club",
                 location: "Oakham, MA",
                 tees: {
-                    blue: { name: "Blue Tees", yards: [350, 380, 165, 410, 515, 175, 390, 525, 400, 365, 170, 500, 385, 415, 180, 395, 530, 420] },
-                    white: { name: "White Tees", yards: [335, 365, 150, 390, 495, 160, 370, 505, 380, 350, 155, 480, 365, 395, 165, 375, 510, 400] },
-                    red: { name: "Red Tees", yards: [290, 320, 125, 340, 435, 130, 320, 440, 330, 305, 130, 420, 315, 345, 135, 325, 445, 350] }
+                    blue: { name: "Blue Tees", yards: [302, 300, 249, 182, 510, 167, 410, 300, 331, 351, 177, 376, 371, 363, 390, 510, 115, 315] },
+                    white: { name: "White Tees", yards: [296, 290, 230, 174, 500, 140, 400, 299, 310, 340, 170, 340, 330, 340, 385, 490, 105, 300] },
+                    gold: { name: "Gold Tees", yards: [270, 260, 200, 162, 475, 135, 380, 270, 300, 324, 165, 320, 310, 250, 355, 415, 90, 275] },
+                    red: { name: "Red Tees", yards: [242, 210, 185, 143, 416, 120, 370, 222, 265, 274, 126, 244, 289, 250, 310, 400, 85, 210] }
                 },
                 holes: [
-                    { hole: 1, par: 4 }, { hole: 2, par: 4 }, { hole: 3, par: 3 },
-                    { hole: 4, par: 4 }, { hole: 5, par: 5 }, { hole: 6, par: 3 },
-                    { hole: 7, par: 4 }, { hole: 8, par: 5 }, { hole: 9, par: 4 },
-                    { hole: 10, par: 4 }, { hole: 11, par: 3 }, { hole: 12, par: 5 },
-                    { hole: 13, par: 4 }, { hole: 14, par: 4 }, { hole: 15, par: 3 },
-                    { hole: 16, par: 4 }, { hole: 17, par: 5 }, { hole: 18, par: 4 }
+                    { hole: 1, par: 4 }, { hole: 2, par: 4 }, { hole: 3, par: 4 },
+                    { hole: 4, par: 3 }, { hole: 5, par: 5 }, { hole: 6, par: 3 },
+                    { hole: 7, par: 5 }, { hole: 8, par: 4 }, { hole: 9, par: 4 },
+                    { hole: 10, par: 4 }, { hole: 11, par: 3 }, { hole: 12, par: 4 },
+                    { hole: 13, par: 4 }, { hole: 14, par: 4 }, { hole: 15, par: 4 },
+                    { hole: 16, par: 5 }, { hole: 17, par: 3 }, { hole: 18, par: 4 }
                 ]
             }
         };
@@ -276,7 +279,7 @@
             
             const fullCourse = course.holes.map((h, i) => ({
                 ...h,
-                yards: yardsList[i] || 350
+                yards: yardsList[i] || 300
             }));
 
             const count = parseInt(localState.holeCount || "18", 10);
