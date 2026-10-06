@@ -234,14 +234,20 @@
 
         const STORAGE_KEY = 'QUAIL_INVITATIONAL_2026_STATE';
         const firebaseConfig = {
-            apiKey: "AIzaSyAgrl9R0YF5XHyjzsoN5iJQQwiMpyl49Ug",
+            apiKey: "AIzaSyAWJFYucEZTzc821rKqfedeN9sO5Yu9PyI",
             authDomain: "quail-invitational.firebaseapp.com",
             databaseURL: "https://quail-invitational-default-rtdb.firebaseio.com",
             projectId: "quail-invitational",
-            storageBucket: "quail-invitational.firebasestorage.app",
-            messagingSenderId: "394140283598",
-            appId: "1:394140283598:web:3268b04be314aeb608d69f"
+            storageBucket: "quail-invitational.appspot.com",
+            messagingSenderId: "1098234710123",
+            appId: "1:1098234710123:web:a1b2c3d4e5f67890"
         };
+
+        // Initialize Firebase
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.database();
 
         let db = null, dbRef = null, firebaseReady = false;
         try { if (firebaseConfig.apiKey) { firebase.initializeApp(firebaseConfig); db = firebase.database(); firebaseReady = true; } } catch (e) {}
