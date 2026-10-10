@@ -127,6 +127,15 @@
                 <div id="all-round-mvp-container" class="space-y-2 pt-1"></div>
             </div>
 
+            <!-- Live Team Beer Leaderboard -->
+            <div class="bg-navy-900/60 p-4 rounded-xl border-2 border-salmon-500/40 space-y-3 shadow-xl">
+                <h3 class="font-serif font-bold text-salmon-400 text-base flex items-center gap-2">
+                    <i data-lucide="beer" class="w-5 h-5 text-salmon-400"></i> Live Team Beer Leaderboard 🍻
+                </h3>
+                <p class="text-[11px] text-slate-300/80">Total drinks consumed per team during the round.</p>
+                <div id="beer-leaderboard-container" class="space-y-2 pt-1"></div>
+            </div>
+
         </main>
     </div>
 
@@ -347,28 +356,57 @@
 
             if (sortedAllTimePlayers.length === 0) {
                 allMvpContainer.innerHTML = `<div class="text-xs text-slate-400 italic">No player shots logged yet.</div>`;
-                return;
+            } else {
+                const maxAllTimeShots = Math.max(1, ...sortedAllTimePlayers.map(p => p.totalShots));
+                sortedAllTimePlayers.forEach((p, idx) => {
+                    const row = document.createElement('div');
+                    row.className = "space-y-1 bg-navy-950/80 p-2.5 rounded-lg border border-navy-800/60";
+                    row.innerHTML = `
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="text-white font-bold flex items-center gap-1.5">
+                                <span class="text-[10px] bg-navy-800 text-salmon-300 px-1.5 py-0.5 rounded font-mono">${idx + 1}</span>
+                                ${p.name}
+                            </span>
+                            <span class="text-salmon-400 font-extrabold">${p.totalShots} Total Shots</span>
+                        </div>
+                        <div class="w-full h-2 bg-navy-900 rounded-full overflow-hidden mt-1">
+                            <div class="h-full salmon-gradient-bg rounded-full" style="width: ${Math.min(100, (p.totalShots / maxAllTimeShots) * 100)}%"></div>
+                        </div>
+                    `;
+                    allMvpContainer.appendChild(row);
+                });
             }
 
-            const maxAllTimeShots = Math.max(1, ...sortedAllTimePlayers.map(p => p.totalShots));
+            // Render Beer Leaderboard
+            const beerLdContainer = document.getElementById('beer-leaderboard-container');
+            if (beerLdContainer) {
+                beerLdContainer.innerHTML = '';
+                const sortedBeers = [...(localState.teams || [])].sort((a, b) => (b.beers || 0) - (a.beers || 0));
 
-            sortedAllTimePlayers.forEach((p, idx) => {
-                const row = document.createElement('div');
-                row.className = "space-y-1 bg-navy-950/80 p-2.5 rounded-lg border border-navy-800/60";
-                row.innerHTML = `
-                    <div class="flex justify-between items-center text-xs">
-                        <span class="text-white font-bold flex items-center gap-1.5">
-                            <span class="text-[10px] bg-navy-800 text-salmon-300 px-1.5 py-0.5 rounded font-mono">${idx + 1}</span>
-                            ${p.name}
-                        </span>
-                        <span class="text-salmon-400 font-extrabold">${p.totalShots} Total Shots</span>
-                    </div>
-                    <div class="w-full h-2 bg-navy-900 rounded-full overflow-hidden mt-1">
-                        <div class="h-full salmon-gradient-bg rounded-full" style="width: ${Math.min(100, (p.totalShots / maxAllTimeShots) * 100)}%"></div>
-                    </div>
-                `;
-                allMvpContainer.appendChild(row);
-            });
+                if (sortedBeers.length === 0 || sortedBeers.every(t => (t.beers || 0) === 0)) {
+                    beerLdContainer.innerHTML = `<div class="text-xs text-slate-400 italic">No drinks logged yet. Start tracking on the scorecard!</div>`;
+                } else {
+                    const maxBeers = Math.max(1, ...sortedBeers.map(t => t.beers || 0));
+                    sortedBeers.forEach((t, idx) => {
+                        const count = t.beers || 0;
+                        const row = document.createElement('div');
+                        row.className = "space-y-1 bg-navy-950/80 p-2.5 rounded-lg border border-navy-800/60";
+                        row.innerHTML = `
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="text-white font-bold flex items-center gap-1.5">
+                                    <span class="text-[10px] bg-navy-800 text-salmon-300 px-1.5 py-0.5 rounded font-mono">${idx + 1}</span>
+                                    ${t.name}
+                                </span>
+                                <span class="text-salmon-400 font-extrabold">${count} ${count === 1 ? 'Drink' : 'Drinks'} 🍻</span>
+                            </div>
+                            <div class="w-full h-2 bg-navy-900 rounded-full overflow-hidden mt-1">
+                                <div class="h-full salmon-gradient-bg rounded-full" style="width: ${Math.min(100, (count / maxBeers) * 100)}%"></div>
+                            </div>
+                        `;
+                        beerLdContainer.appendChild(row);
+                    });
+                }
+            }
         }
 
         window.addEventListener('DOMContentLoaded', () => {
