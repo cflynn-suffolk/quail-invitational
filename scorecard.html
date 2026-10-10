@@ -188,6 +188,17 @@
                 </div>
             </div>
 
+            <!-- Beer Tracking Section -->
+            <div class="bg-gradient-to-br from-navy-900 via-navy-900 to-navy-950 p-4 rounded-2xl border border-salmon-500/30 shadow-xl space-y-3">
+                <div class="flex justify-between items-center border-b border-navy-800/80 pb-2">
+                    <h3 class="text-xs font-bold text-salmon-400 uppercase flex items-center gap-1.5">
+                        <i data-lucide="beer" class="w-4 h-4"></i> Team Beer Tracking 🍻
+                    </h3>
+                    <span class="text-[10px] text-slate-400">Total Round Drinks</span>
+                </div>
+                <div id="team-beers-list" class="space-y-2"></div>
+            </div>
+
         </main>
     </div>
 
@@ -258,8 +269,8 @@
                 trackGroupScore: true,
                 trackPersonalShots: true,
                 teams: [
-                    { name: "Team 1", players: ["Player 1", "Player 2"], holes: [] },
-                    { name: "Team 2", players: ["Player 3", "Player 4"], holes: [] }
+                    { name: "Team 1", players: ["Player 1", "Player 2"], holes: [], beers: 0 },
+                    { name: "Team 2", players: ["Player 3", "Player 4"], holes: [], beers: 0 }
                 ]
             };
         }
@@ -325,28 +336,24 @@
             const totalPar = activeHoles.reduce((sum, h) => sum + h.par, 0);
             const totalYards = activeHoles.reduce((sum, h) => sum + h.yards, 0);
 
-            // 1) Header Row: Hole | 1 | 2 | ... | TOT
             headerRow.innerHTML = `
                 <th class="p-2 border-r border-navy-800 text-left sticky left-0 bg-navy-900 z-10 w-16">Hole</th>
                 ${activeHoles.map(h => `<th class="p-1 border-r border-navy-800/60 w-8">${h.hole}</th>`).join('')}
                 <th class="p-2 border-l border-navy-800 bg-navy-900 text-salmon-400">TOT</th>
             `;
 
-            // 2) Par Row: Par | 4 | 4 | ... | 71
             parRow.innerHTML = `
                 <th class="p-1 border-r border-navy-800 text-left sticky left-0 bg-navy-950 z-10">Par</th>
                 ${activeHoles.map(h => `<td class="p-1 border-r border-navy-800/60">${h.par}</td>`).join('')}
                 <th class="p-1 border-l border-navy-800 font-bold">${totalPar}</th>
             `;
 
-            // 3) Yards Row: Yards | 302 | 300 | ... | 5719
             yardsRow.innerHTML = `
                 <th class="p-1 border-r border-navy-800 text-left sticky left-0 bg-navy-950 z-10">Yards</th>
                 ${activeHoles.map(h => `<td class="p-1 border-r border-navy-800/60 text-[10px] text-slate-400">${h.yards}</td>`).join('')}
                 <th class="p-1 border-l border-navy-800 font-bold text-[10px] text-slate-300">${totalYards}</th>
             `;
 
-            // 4) Team Rows
             teamsBody.innerHTML = '';
 
             (localState.teams || []).forEach((team, tIdx) => {
@@ -487,8 +494,29 @@
                 });
             }
 
+            // Render Beer Tracking list
+            const beerContainer = document.getElementById('team-beers-list');
+            if (beerContainer) {
+                beerContainer.innerHTML = '';
+                (localState.teams || []).forEach((t, tIdx) => {
+                    const beerCount = t.beers || 0;
+                    const row = document.createElement('div');
+                    row.className = "bg-navy-900/60 p-2.5 rounded-xl border border-navy-800 flex items-center justify-between";
+                    row.innerHTML = `
+                        <span class="text-xs font-semibold text-white">${t.name}</span>
+                        <div class="flex items-center gap-2">
+                            <button onclick="adjustTeamBeers(${tIdx}, -1)" class="w-8 h-8 rounded-lg bg-navy-950 text-slate-200 font-bold flex items-center justify-center border border-navy-700">-</button>
+                            <span class="font-bold text-sm text-salmon-400 w-6 text-center">${beerCount}</span>
+                            <button onclick="adjustTeamBeers(${tIdx}, 1)" class="w-8 h-8 rounded-lg bg-navy-950 text-slate-200 font-bold flex items-center justify-center border border-navy-700">+</button>
+                        </div>
+                    `;
+                    beerContainer.appendChild(row);
+                });
+            }
+
             renderScorecardGrid();
             renderPills();
+            lucide.createIcons();
         }
 
         window.adjustPlayerShot = function(pIdx, delta) {
@@ -504,6 +532,13 @@
                 team.holes[activeHoleIdx].score = totalPersonal;
             }
 
+            syncToFirebaseAndLocal();
+            renderUI();
+        };
+
+        window.adjustTeamBeers = function(tIdx, delta) {
+            if (!localState.teams[tIdx]) return;
+            localState.teams[tIdx].beers = Math.max(0, (localState.teams[tIdx].beers || 0) + delta);
             syncToFirebaseAndLocal();
             renderUI();
         };
