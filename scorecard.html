@@ -130,21 +130,9 @@
                 <div class="overflow-x-auto no-scrollbar border border-navy-800 rounded-xl bg-navy-950">
                     <table class="w-full text-center text-xs border-collapse min-w-max">
                         <thead>
-                            <tr class="bg-navy-900/80 text-slate-300 text-[10px] uppercase font-bold border-b border-navy-800">
-                                <th class="p-2 border-r border-navy-800 text-left sticky left-0 bg-navy-900 z-10 w-16">Hole</th>
-                                <tr id="scorecard-grid-header-holes" class="contents"></tr>
-                                <th class="p-2 border-l border-navy-800 bg-navy-900 text-salmon-400">TOT</th>
-                            </tr>
-                            <tr class="bg-navy-950/80 text-slate-400 text-[10px] border-b border-navy-800/60">
-                                <th class="p-1 border-r border-navy-800 text-left sticky left-0 bg-navy-950 z-10">Par</th>
-                                <tr id="scorecard-grid-pars" class="contents"></tr>
-                                <th id="scorecard-grid-total-par" class="p-1 border-l border-navy-800 font-bold">71</th>
-                            </tr>
-                            <tr class="bg-navy-950/90 text-slate-400 text-[10px] border-b border-navy-800">
-                                <th class="p-1 border-r border-navy-800 text-left sticky left-0 bg-navy-950 z-10">Yards</th>
-                                <tr id="scorecard-grid-yards" class="contents"></tr>
-                                <th id="scorecard-grid-total-yards" class="p-1 border-l border-navy-800 font-bold text-[10px]">0</th>
-                            </tr>
+                            <tr id="scorecard-grid-row-header" class="bg-navy-900/80 text-slate-300 text-[10px] uppercase font-bold border-b border-navy-800"></tr>
+                            <tr id="scorecard-grid-row-pars" class="bg-navy-950/80 text-slate-400 text-[10px] border-b border-navy-800/60"></tr>
+                            <tr id="scorecard-grid-row-yards" class="bg-navy-950/90 text-slate-400 text-[10px] border-b border-navy-800"></tr>
                         </thead>
                         <tbody id="scorecard-grid-team-scores"></tbody>
                     </table>
@@ -329,20 +317,36 @@
 
         function renderScorecardGrid() {
             const activeHoles = getActiveCourseHoles();
-            const headerRow = document.getElementById('scorecard-grid-header-holes');
-            const parRow = document.getElementById('scorecard-grid-pars');
-            const yardsRow = document.getElementById('scorecard-grid-yards');
+            const headerRow = document.getElementById('scorecard-grid-row-header');
+            const parRow = document.getElementById('scorecard-grid-row-pars');
+            const yardsRow = document.getElementById('scorecard-grid-row-yards');
             const teamsBody = document.getElementById('scorecard-grid-team-scores');
 
-            headerRow.innerHTML = activeHoles.map(h => `<th class="p-1 border-r border-navy-800/60 w-8">${h.hole}</th>`).join('');
-            parRow.innerHTML = activeHoles.map(h => `<td class="p-1 border-r border-navy-800/60">${h.par}</td>`).join('');
-            yardsRow.innerHTML = activeHoles.map(h => `<td class="p-1 border-r border-navy-800/60 text-[10px] text-slate-400">${h.yards}</td>`).join('');
-            
             const totalPar = activeHoles.reduce((sum, h) => sum + h.par, 0);
             const totalYards = activeHoles.reduce((sum, h) => sum + h.yards, 0);
-            document.getElementById('scorecard-grid-total-par').textContent = totalPar;
-            document.getElementById('scorecard-grid-total-yards').textContent = totalYards;
 
+            // 1) Header Row: Hole | 1 | 2 | ... | TOT
+            headerRow.innerHTML = `
+                <th class="p-2 border-r border-navy-800 text-left sticky left-0 bg-navy-900 z-10 w-16">Hole</th>
+                ${activeHoles.map(h => `<th class="p-1 border-r border-navy-800/60 w-8">${h.hole}</th>`).join('')}
+                <th class="p-2 border-l border-navy-800 bg-navy-900 text-salmon-400">TOT</th>
+            `;
+
+            // 2) Par Row: Par | 4 | 4 | ... | 71
+            parRow.innerHTML = `
+                <th class="p-1 border-r border-navy-800 text-left sticky left-0 bg-navy-950 z-10">Par</th>
+                ${activeHoles.map(h => `<td class="p-1 border-r border-navy-800/60">${h.par}</td>`).join('')}
+                <th class="p-1 border-l border-navy-800 font-bold">${totalPar}</th>
+            `;
+
+            // 3) Yards Row: Yards | 302 | 300 | ... | 5719
+            yardsRow.innerHTML = `
+                <th class="p-1 border-r border-navy-800 text-left sticky left-0 bg-navy-950 z-10">Yards</th>
+                ${activeHoles.map(h => `<td class="p-1 border-r border-navy-800/60 text-[10px] text-slate-400">${h.yards}</td>`).join('')}
+                <th class="p-1 border-l border-navy-800 font-bold text-[10px] text-slate-300">${totalYards}</th>
+            `;
+
+            // 4) Team Rows
             teamsBody.innerHTML = '';
 
             (localState.teams || []).forEach((team, tIdx) => {
